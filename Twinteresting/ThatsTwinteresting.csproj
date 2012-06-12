@@ -41,6 +41,9 @@
     <Reference Include="Nancy.Hosting.Wcf">
       <HintPath>..\packages\Nancy.Hosting.Wcf.0.11.0\lib\net40\Nancy.Hosting.Wcf.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.103.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
@@ -63,7 +66,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web\Content\bootstrap.css" />
-    <Content Include="Web\Content\bootstrap.min.js" />
+    <Content Include="Web\Content\bootstrap.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\Content\jquery-1.7.2.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web\Content\modernizr-2.5.3.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
