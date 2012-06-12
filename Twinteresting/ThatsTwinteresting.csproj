@@ -41,6 +41,7 @@
     <Reference Include="Nancy.Hosting.Wcf">
       <HintPath>..\packages\Nancy.Hosting.Wcf.0.11.0\lib\net40\Nancy.Hosting.Wcf.dll</HintPath>
     </Reference>
+    <Reference Include="OSIsoft.AFSDK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6238be57836698e6, processorArchitecture=MSIL" />
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.103.1\lib\net4\RestSharp.dll</HintPath>
     </Reference>
@@ -57,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Nancy\CustomBootstrapper.cs" />
     <Compile Include="Nancy\NancyApp.cs" />
+    <Compile Include="PI AF\PIConnection.cs" />
+    <Compile Include="PI AF\TwitterQueryModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -69,6 +72,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Web\Content\bootstrap.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\Content\hogan-2.0.0.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Web\Content\jquery-1.7.2.min.js">

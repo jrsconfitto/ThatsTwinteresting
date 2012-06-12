@@ -1,9 +1,14 @@
 ﻿using Nancy;
+using OSIsoft.AF;
+using OSIsoft.AF.Asset;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
+// So i can access my bad global variables more easily
+using NancyCSharpWORK.PI_AF;
 
 namespace NancyCSharpWORK
 {
@@ -13,17 +18,40 @@ namespace NancyCSharpWORK
         {
             Get["/"] = _ => View["Views/index"];
 
-            Get["/{query}"] = parameters =>
+            Get["/results"] = _ =>
             {
-                var query = parameters.query;
+                // Get the queries from the PI AF database
+                AFNamedCollectionList<AFElement> twitterQueryElements = AFElement.FindElementsByTemplate(PIConnection.afDB,
+                    null,
+                    PIConnection.afQueryElementTemplate,
+                    true,
+                    AFSortField.Name,
+                    AFSortOrder.Ascending,
+                    12);
 
-                // Send a message through the web api to my little Twitter reading service
-                var client = new RestClient("http://localhost:1111");
-                RestRequest queryRequest = new RestRequest(query, Method.POST);
-                client.Execute(queryRequest);
+                List<TwitterQueryModel> elementsModel = new List<TwitterQueryModel>();
 
-                return "cool";
+                foreach (AFElement queryElement in twitterQueryElements)
+                {
+                    var queryActive = queryElement.Attributes["Active"].GetValue().Value.ToString();
+                    var timestamp = queryElement.Attributes["Query Start Time"].GetValue().ToString();
+
+                    elementsModel.Add(
+                        new TwitterQueryModel() {
+                            name = queryElement.Name,
+                            active = bool.Parse(queryActive),
+                            queryTime = DateTime.Parse(timestamp)
+                        }
+                    ); 
+                }
+
+                return Response.AsJson(elementsModel);
             };
+
+            //Get["/allresults"] = _ =>
+            //    {
+
+            //    };
         }
     }
 }

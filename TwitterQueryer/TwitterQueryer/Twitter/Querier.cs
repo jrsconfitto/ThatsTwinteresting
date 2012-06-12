@@ -6,7 +6,6 @@ using OSIsoft.AF.EventFrame;
 
 using TwitterQueryer.PI_AF;
 
-
 namespace TwitterQueryer.Twitter
 {
 
@@ -24,6 +23,7 @@ namespace TwitterQueryer.Twitter
                 queryElement = new AFElement(queryString.Replace("%20", " "), PIConnection.afQueryElementTemplate);
                 queryElement.Attributes["Query"].SetValue(new AFValue(queryString.Replace("%20", " ")));
                 queryElement.Attributes["Query Start Time"].SetValue(new AFValue(DateTime.Now));
+
                 PIConnection.afDB.Elements.Add(queryElement);
                 PIConnection.afDB.CheckIn();
                 Console.WriteLine("New AF Element created for this Twitter query");
@@ -32,12 +32,6 @@ namespace TwitterQueryer.Twitter
             // Create the request for Twitter's API
             IRestRequest tqRequest = new RestRequest("search.json", Method.POST);
             tqRequest.AddParameter("q", queryString);
-
-            //// If we have already performed this query
-            //if (queryElement.Attributes["max_id"] != null)
-            //{
-            //    tqRequest.AddParameter("since_id", queryString);
-            //}
 
             try
             {

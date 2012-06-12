@@ -68,9 +68,14 @@
       </div>
 
       <hr>
-          
-      <div>
-        <p>And results go here!</p>
+
+      <div class="row">
+        <div class="span12">
+          <h2>Past queries</h2>
+        </div>
+      </div>
+
+      <div id="queryResults">
       </div>
 
       <hr>
@@ -89,12 +94,8 @@
   </footer>
 
   <!-- JavaScript at the bottom for fast page loading -->
-
-  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="/Web/Content/jquery-1.7.2.min.js"><\/script>')</script>
-
-  <!-- scripts concatenated and minified via build script -->
+  <script src="Web/Content/jquery-1.7.2.min.js"></script>
+  <script src="Web/Content/hogan-2.0.0.min.js"></script>
   <script src="Web/Content/plugins.js"></script>
   <script src="Web/Content/script.js"></script>
   <script src="Web/Content/bootstrap.min.js"></script>
