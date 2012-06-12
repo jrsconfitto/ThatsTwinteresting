@@ -1,5 +1,6 @@
 ﻿using RestSharp;
 using System;
+using OSIsoft.AF;
 using OSIsoft.AF.Asset;
 using OSIsoft.AF.EventFrame;
 
@@ -15,17 +16,28 @@ namespace TwitterQueryer.Twitter
 
         public static void QueryTwitter(string queryString)
         {
-            // Create a PI Twitter Query Element for the query
-            OSIsoft.AF.Asset.AFElement queryElement = new AFElement(queryString, PIConnection.afQueryElementTemplate);
-            queryElement.Attributes["Query"].SetValue(new AFValue(queryString));
-            queryElement.Attributes["Query Start Time"].SetValue(new AFValue(DateTime.Now));
-            PIConnection.afDB.Elements.Add(queryElement);
-            PIConnection.afDB.CheckIn();
-            Console.WriteLine("New AF Element created for this Twitter query");
+            // Create a PI Twitter Query Element for the query if it's not already present
+            OSIsoft.AF.Asset.AFElement queryElement = PIConnection.afDB.Elements[queryString];
+
+            if (queryElement == null)
+            {
+                queryElement = new AFElement(queryString, PIConnection.afQueryElementTemplate);
+                queryElement.Attributes["Query"].SetValue(new AFValue(queryString));
+                queryElement.Attributes["Query Start Time"].SetValue(new AFValue(DateTime.Now));
+                PIConnection.afDB.Elements.Add(queryElement);
+                PIConnection.afDB.CheckIn();
+                Console.WriteLine("New AF Element created for this Twitter query");
+            }
 
             // Create the request for Twitter's API
             IRestRequest tqRequest = new RestRequest("search.json", Method.POST);
             tqRequest.AddParameter("q", queryString);
+
+            //// If we have already performed this query
+            //if (queryElement.Attributes["max_id"] != null)
+            //{
+            //    tqRequest.AddParameter("since_id", queryString);
+            //}
 
             try
             {
@@ -48,8 +60,27 @@ namespace TwitterQueryer.Twitter
                     // Build an EF for each resulting tweet
                     foreach (Result tweet in result.results)
                     {
-                        // Create a new EventFrame for each tweet
+                        // Create a new EventFrame for each tweet and fill in its attributes
                         AFEventFrame tweetEF = new AFEventFrame(PIConnection.afDB, "tweet #" + tweet.id_str, PIConnection.tweetEFTemplate);
+
+                        // Timing
+                        tweetEF.SetStartTime(tweet.created_at);
+                        tweetEF.SetEndTime(tweet.created_at);
+                        tweetEF.Description = "Tweet from " + tweet.from_user;
+
+                        // Attributes
+                        tweetEF.Attributes["id"].SetValue(new AFValue(tweet.id_str));
+                        tweetEF.Attributes["profile_image_url"].SetValue(new AFValue(tweet.profile_image_url));
+                        tweetEF.Attributes["Text"].SetValue(new AFValue(tweet.text));
+                        tweetEF.Attributes["User id"].SetValue(new AFValue(tweet.from_user_id_str));
+                        tweetEF.Attributes["User name"].SetValue(new AFValue(tweet.from_user));
+
+                        // Get the coordinates into PI somehow
+                        if (tweet.geo != null && tweet.geo.coordinates.Count == 2)
+                        {
+                            tweetEF.Attributes["Latitude"].SetValue(new AFValue(tweet.geo.coordinates[0]));
+                            tweetEF.Attributes["Longitude"].SetValue(new AFValue(tweet.geo.coordinates[1]));
+                        }
                     }
 
                     Console.WriteLine("Wrote {0} tweets to PI", result.results.Count);
