@@ -10,10 +10,10 @@ namespace TwitterQueryer
     {
         public TwitterQuerierNancyApp()
         {
-            Post["/{query}"] = parameters =>
+            Post["/query/{query}"] = parameters =>
             {
                 var query = parameters.query;
-
+                
                 // Start a Twitter Query for that data
                 TwitterQueryer.Querier.QueryTwitter(query);
 

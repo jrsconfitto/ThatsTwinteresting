@@ -17,7 +17,7 @@ namespace TwitterQueryer
 
             if (tqResponse != null)
             {
-                Console.WriteLine("We made it!");
+                Console.WriteLine(tqResponse.Content);
             }
         }
     }
