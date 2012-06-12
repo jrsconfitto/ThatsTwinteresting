@@ -20,7 +20,7 @@ namespace TwitterQueryer
             TwitterQueryer.PI_AF.PIConnection.Connect(args[0], args[1], args[2], args[3]);
 
             // Verify the connection on the console
-            Console.WriteLine(String.Format("AF Database {0} is connected!", PI_AF.PIConnection.afDB.Database.Name));
+            Console.WriteLine(String.Format("AF Database {0} is connected!", PI_AF.PIConnection.afDB.Name));
 
             // Start up the Nancy web api for my project
             var host = new WebServiceHost(new NancyWcfGenericService(),

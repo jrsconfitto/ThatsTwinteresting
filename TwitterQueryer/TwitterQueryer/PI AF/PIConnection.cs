@@ -1,4 +1,6 @@
 ﻿using OSIsoft.AF;
+using OSIsoft.AF.Asset;
+using OSIsoft.AF.EventFrame;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,8 @@ namespace TwitterQueryer.PI_AF
     public class PIConnection
     {
         public static AFDatabase afDB;
+        public static AFElementTemplate afQueryElementTemplate;
+        public static AFElementTemplate tweetEFTemplate;
 
         /// <summary>
         /// Connects to the PI AF machine
@@ -25,6 +29,10 @@ namespace TwitterQueryer.PI_AF
 
             // Grab the database
             afDB = pisystem.Databases[databaseName];
+
+            // Grab the Twitter Query's Element Template
+            afQueryElementTemplate = afDB.ElementTemplates["Twitter Query"];
+            tweetEFTemplate = afDB.ElementTemplates["Tweet"];
         }
     }
 }

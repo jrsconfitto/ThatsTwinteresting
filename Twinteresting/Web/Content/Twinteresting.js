@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $('#search').click(function () {
+    function sendQuery(queryText) {
         // Post to my querying service
         var query_data = $('#queryTerms').val();
 
@@ -10,5 +10,16 @@
                 console.log(data);
             },
         });
+    }
+
+    $('#queryTerms').keypress(function(e) {
+        if (e.which == 13) {
+          e.preventDefault();
+          sendQuery();
+        }
+    })
+
+    $('#search').click(function () {
+        sendQuery();
     });
 });
