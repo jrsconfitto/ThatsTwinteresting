@@ -41,6 +41,7 @@
     <Reference Include="Nancy.Hosting.Wcf">
       <HintPath>..\packages\Nancy.Hosting.Wcf.0.11.0\lib\net40\Nancy.Hosting.Wcf.dll</HintPath>
     </Reference>
+    <Reference Include="OSIsoft.AFSDK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6238be57836698e6, processorArchitecture=MSIL" />
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.103.1\lib\net4\RestSharp.dll</HintPath>
     </Reference>
@@ -55,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PI AF\PIConnection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Twitter\Querier.cs" />
@@ -64,10 +66,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="readme.md" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PI AF\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
