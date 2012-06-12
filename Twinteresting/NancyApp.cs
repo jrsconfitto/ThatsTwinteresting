@@ -1,5 +1,4 @@
 ﻿using Nancy;
-using Nancy.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,21 +10,7 @@ namespace NancyCSharpWORK
     {
         public NancyApp()
         {
-            Get["/"] = _ => "hello world";
-
-            Get["/{what}"] = parameters =>
-            {
-                var what = parameters.what;
-                return "hello there " + what + "!";
-            };
-        }
-    }
-
-    public class CustomBootstrapper : DefaultNancyBootstrapper
-    {
-        protected override DiagnosticsConfiguration DiagnosticsConfiguration
-        {
-            get { return new DiagnosticsConfiguration { Password = @"Hackathon" }; }
+            Get["/"] = _ => View["Views/index"];
         }
     }
 }
