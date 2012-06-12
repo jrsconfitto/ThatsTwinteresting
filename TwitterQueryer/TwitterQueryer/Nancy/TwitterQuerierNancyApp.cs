@@ -15,7 +15,7 @@ namespace TwitterQueryer
                 var query = parameters.query;
                 
                 // Start a Twitter Query for that data
-                TwitterQueryer.Querier.QueryTwitter(query);
+                TwitterQueryer.Twitter.Querier.QueryTwitter(query);
 
                 return null;
             };
