@@ -55,8 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomBootstrapper.cs" />
-    <Compile Include="NancyApp.cs" />
+    <Compile Include="Nancy\CustomBootstrapper.cs" />
+    <Compile Include="Nancy\NancyApp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -65,7 +65,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web\Content\bootstrap.css" />
+    <Content Include="Web\Content\bootstrap.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web\Content\bootstrap.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

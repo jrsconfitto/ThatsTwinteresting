@@ -20,7 +20,7 @@
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
-  <link rel="stylesheet" href="Web/Content/style.css">
+  <!--<link rel="stylesheet" href="Web/Content/style.css">-->
   <link rel="stylesheet" href="Web/Content/bootstrap.css">
 
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
@@ -35,16 +35,42 @@
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
   <header>
-
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Twinteresting</a> 
+        </div>
+      </div>
+    </div>    
   </header>
+
   <div role="main">
-    <p>This is where my content goes because it's happier that way!</p>
-    <a href="/heyooohhhh">Query for some text or something...</a>
+    <div class="container">
+    
+      <div class="row">
+        <div class="span12">
+          <h1>That's Twinteresting</h1>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="span12">
+          <p>This is where my content goes because it's happier that way!</p>
+          <a href="/heyooohhhh">Query for some text or something...</a>
+        </div>
+      </div>
+    </div>
   </div>
+
   <footer>
-
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <p>&copy 2012 James Sconfitto</p>
+        </div>
+      </div>
+    </div>
   </footer>
-
 
   <!-- JavaScript at the bottom for fast page loading -->
 
