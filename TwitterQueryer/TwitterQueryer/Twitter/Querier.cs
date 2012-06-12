@@ -21,8 +21,8 @@ namespace TwitterQueryer.Twitter
 
             if (queryElement == null)
             {
-                queryElement = new AFElement(queryString, PIConnection.afQueryElementTemplate);
-                queryElement.Attributes["Query"].SetValue(new AFValue(queryString));
+                queryElement = new AFElement(queryString.Replace("%20", " "), PIConnection.afQueryElementTemplate);
+                queryElement.Attributes["Query"].SetValue(new AFValue(queryString.Replace("%20", " ")));
                 queryElement.Attributes["Query Start Time"].SetValue(new AFValue(DateTime.Now));
                 PIConnection.afDB.Elements.Add(queryElement);
                 PIConnection.afDB.CheckIn();
@@ -57,16 +57,19 @@ namespace TwitterQueryer.Twitter
                     queryElement.Attributes["Completed in"].SetValue(new AFValue(result.completed_in));
                     queryElement.Attributes["max_id"].SetValue(new AFValue(result.max_id));
 
+                    //todo: add a page for each
+
                     // Build an EF for each resulting tweet
                     foreach (Result tweet in result.results)
                     {
                         // Create a new EventFrame for each tweet and fill in its attributes
                         AFEventFrame tweetEF = new AFEventFrame(PIConnection.afDB, "tweet #" + tweet.id_str, PIConnection.tweetEFTemplate);
+                        tweetEF.PrimaryReferencedElement = queryElement;
 
                         // Timing
                         tweetEF.SetStartTime(tweet.created_at);
                         tweetEF.SetEndTime(tweet.created_at);
-                        tweetEF.Description = "Tweet from " + tweet.from_user;
+                        tweetEF.Description = String.Format("{0} tweet from {1}", queryElement.Name , tweet.from_user);
 
                         // Attributes
                         tweetEF.Attributes["id"].SetValue(new AFValue(tweet.id_str));

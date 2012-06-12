@@ -10,6 +10,9 @@
                 console.log(data);
             },
         });
+
+        // Clear the input box
+        $('#queryTerms').val("");
     }
 
     $('#queryTerms').keypress(function(e) {
