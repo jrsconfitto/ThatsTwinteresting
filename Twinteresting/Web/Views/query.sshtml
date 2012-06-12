@@ -21,14 +21,14 @@
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
   <!--<link rel="stylesheet" href="Web/Content/style.css">-->
-  <link rel="stylesheet" href="Web/Content/bootstrap.css">
+  <link rel="stylesheet" href="@Path['~/Web/Content/bootstrap.css']">
 
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
   <!-- All JavaScript at the bottom, except this Modernizr build.
        Modernizr enables HTML5 elements & feature detects for optimal performance.
        Create your own custom Modernizr build: www.modernizr.com/download/ -->
-  <script src="Web/Content/modernizr-2.5.3.min.js"></script>
+  <script src="@Path['~/Web/Content/modernizr-2.5.3.min.js']"></script>
 </head>
 <body>
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
@@ -38,7 +38,7 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">Twinteresting</a> 
+          <a class="brand" href="#">Twinteresting</a>
           <ul class="nav">
             <li>
               <a href="/about">About</a>
@@ -55,40 +55,32 @@
       <div class="row">
         <div class="span12">
           <h1>
-            That's Twinteresting <small>Follow the information that's important to you on Twitter.</small>
+            @Model.name <small>Query details</small>
           </h1>
         </div>
       </div>
 
       <hr>
-      
-      <div class="row">
-        <div class="span12">
-          <h2>What do you want to search Twitter for?</h2>
-          <form class="well form-search">
-            <input id="queryTerms" type="text" class="input-xlarge search-query">
-            <button id="search" class="btn">Search</button>
-          </form>
-        </div>
-      </div>
-
-      <hr>
 
       <div class="row">
         <div class="span12">
-          <h2>Past queries</h2>
+          <h2>Recorded tweets</h2>
         </div>
       </div>
 
-      <div id="queryResults">
+      @Each.tweets
+      <div class="row">
+        <div class="span12">
+          <p>From user @Current.user_name : @Current.text</p>
+        </div>
       </div>
-
-      <hr>
+      @EndEach
     </div>
   </div>
 
     
   <footer>
+    <hr>
     <div class="container">
       <div class="row">
         <div class="span12">
@@ -99,12 +91,10 @@
   </footer>
 
   <!-- JavaScript at the bottom for fast page loading -->
-  <script src="Web/Content/jquery-1.7.2.min.js"></script>
-  <script src="Web/Content/hogan-2.0.0.min.js"></script>
-  <script src="Web/Content/plugins.js"></script>
-  <script src="Web/Content/script.js"></script>
-  <script src="Web/Content/bootstrap.min.js"></script>
-  <script src="Web/Content/Twinteresting.js"></script>
+  <script src="@Path['~/Web/Content/jquery-1.7.2.min.js']"></script>
+  <script src="@Path['~/Web/Content/plugins.js']"></script>
+  <script src="@Path['~/Web/Content/script.js']"></script>
+  <script src="@Path['~/Web/Content/bootstrap.min.js']"></script>
   <!-- end scripts -->
 
   <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.

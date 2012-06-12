@@ -28,6 +28,8 @@ namespace TwitterQueryer
             host.AddServiceEndpoint(typeof (NancyWcfGenericService), new WebHttpBinding(), "");
             host.Open();
 
+            // Start up a thread that will watch for any new queries
+
             Console.ReadLine();
         }
     }

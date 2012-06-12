@@ -28,6 +28,11 @@ namespace TwitterQueryer.Twitter
                 PIConnection.afDB.CheckIn();
                 Console.WriteLine("New AF Element created for this Twitter query");
             }
+            else
+            {
+                // Try to use the last query found
+                AFEventFrame.FindEventFrames(PIConnection.afDB,
+            }
 
             // Create the request for Twitter's API
             IRestRequest tqRequest = new RestRequest("search.json", Method.POST);

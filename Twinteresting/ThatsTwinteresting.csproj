@@ -59,7 +59,7 @@
     <Compile Include="Nancy\CustomBootstrapper.cs" />
     <Compile Include="Nancy\NancyApp.cs" />
     <Compile Include="PI AF\PIConnection.cs" />
-    <Compile Include="PI AF\TwitterQueryModel.cs" />
+    <Compile Include="Nancy\Models\TwitterQueryModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -92,6 +92,10 @@
     <Content Include="Web\Content\Twinteresting.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Web\Views\query.sshtml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Web\Views\index.sshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
