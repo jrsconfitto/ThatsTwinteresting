@@ -31,11 +31,11 @@ namespace TwitterQueryer
             // Start up the Nancy web api for my project
             var host = new WebServiceHost(new NancyWcfGenericService(),
                                           new Uri(baseUrl));
-            host.AddServiceEndpoint(typeof (NancyWcfGenericService), new WebHttpBinding(), "");
+            host.AddServiceEndpoint(typeof(NancyWcfGenericService), new WebHttpBinding(), "");
             host.Open();
 
             // Start up a thread that will watch for any new queries
-            var timer = new System.Timers.Timer(10000);
+            var timer = new System.Timers.Timer(25000);
 
             // Start up a timer to continuously query Twitter
             timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
@@ -56,12 +56,25 @@ namespace TwitterQueryer
                 AFSortOrder.Ascending,
                 500
             );
-    
+
             // Run each query against Twitter again
-            foreach (AFElement queryElement in twitterQueryElements) 
+            foreach (AFElement queryElement in twitterQueryElements)
             {
-                Console.WriteLine("My service is checking Twitter for the {0} query.", queryElement.Name);
-                TwitterQueryer.Twitter.Querier.QueryTwitter(queryElement.Name);
+                var active = Boolean.Parse(queryElement.Attributes["active"].GetValue().Value.ToString());
+
+                if (active)
+                {
+                    Console.WriteLine("My service is checking Twitter for the {0} query.", queryElement.Name);
+                    TwitterQueryer.Twitter.Querier.QueryTwitter(queryElement.Name);
+                }
+                else
+                {
+                    Console.WriteLine("{0} query is inactive.", queryElement.Name);
+                }
+
+                // Formatting
+                Console.WriteLine();
             }
         }
-    }}
+    }
+}

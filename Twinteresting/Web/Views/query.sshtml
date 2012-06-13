@@ -53,20 +53,10 @@
     <div class="container">
     
       <div class="row">
-        <div class="span8">
+        <div class="span12">
           <h1>
             @Model.name <small>Query details</small>
           </h1>
-        </div>
-        <div class="span4">
-          <p>
-            @If.active
-            <a id="setInactive" class="btn btn-info" href="#" style="margin-top: 8px;">Set inactive</a>
-            @EndIf
-            @IfNot.active
-            <a id="setActive" class="btn btn-info" href="#" style="margin-top: 8px;">Set active</a>
-            @EndIf
-          </p>
         </div>
       </div>
 
