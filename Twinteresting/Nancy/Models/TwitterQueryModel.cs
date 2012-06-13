@@ -24,5 +24,6 @@ namespace Hackathon.PI_AF
         public string user_name { get; set; }
         public string latitude { get; set; }
         public string longitude { get; set; }
+        public string location_link { get; set; }
     }
 }

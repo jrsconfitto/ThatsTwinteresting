@@ -138,14 +138,25 @@ namespace Hackathon
             List<TweetModel> tweetModelList = new List<TweetModel>();
             foreach (AFEventFrame ef in tweets)
             {
-                tweetModelList.Add(new TweetModel()
-                {
+                string loc_link;
+                string lat = ef.Attributes["Latitude"].GetValue().Value.ToString();
+                string longi = ef.Attributes["Longitude"].GetValue().Value.ToString();
+
+                if (lat != "" && longi != "") {
+                    loc_link = string.Format(@"<a href=""https://maps.google.com/maps?q=loc:{0},{1}"">(Location)</a>", lat, longi);
+                }
+                else {
+                    loc_link = "";
+                }
+
+                tweetModelList.Add(new TweetModel() {
                     id = ef.Attributes["id"].GetValue().Value.ToString(),
                     user_name = ef.Attributes["User name"].GetValue().Value.ToString(),
                     profile_url = ef.Attributes["profile_image_url"].GetValue().Value.ToString(),
                     text = ef.Attributes["Text"].GetValue().ToString(),
-                    latitude = ef.Attributes["Latitude"].GetValue().Value.ToString(),
-                    longitude = ef.Attributes["Longitude"].GetValue().Value.ToString()
+                    latitude = lat,
+                    longitude = longi,
+                    location_link = loc_link
                 });
             }
 
