@@ -55,17 +55,12 @@
       <div class="row">
         <div class="span12">
           <h1>
-            @Model.name <small>Query details</small>
+            @Model.name <small>Query details</small> @If.location<span class="label label-info">Uses location</span>@EndIf
           </h1>
         </div>
       </div>
 
       <hr>
-
-      <div class="row">
-        <div class="span2 offset4">
-        </div>
-      </div>
 
       @If.Hastweets
       <div class="row">
@@ -78,7 +73,7 @@
       <div class="row">
         <div class="span12">
           <p>
-            <a href="http://twitter.com/@Current.user_name/status/@Current.id">@Current.user_name</a>: @Current.text
+            <a href="http://twitter.com/@Current.user_name/status/@Current.id">@Current.user_name</a>: @Current.text <a href="https://maps.google.com/maps?q=loc:@Current.latitude,@Current.longitude">(Location)</a>
           </p>
         </div>
       </div>

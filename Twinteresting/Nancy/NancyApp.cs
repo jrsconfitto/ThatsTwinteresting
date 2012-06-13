@@ -94,16 +94,45 @@ namespace Hackathon
             // Get the Element with that Guid
             Guid queryID = new Guid(id);
 
+            // If this is a location based tweet, grab only tweets with coordinates (for now)
+
             AFElement twitterQuery = AFElement.FindElement(PIConnection.afDB.PISystem, queryID);
-            AFNamedCollectionList<AFEventFrame> tweets = twitterQuery.GetEventFrames(
-                DateTime.Now,
-                0,
-                count,
-                AFEventFrameSearchMode.BackwardFromStartTime,
-                "",
-                null,
-                PIConnection.tweetEFTemplate
-            );
+
+            var location_based = twitterQuery.Attributes["Location Query"].GetValue().Value.ToString() != "0";
+
+            AFNamedCollectionList<AFEventFrame> tweets;
+            if (location_based)
+            {
+                AFAttributeTemplate latitudeTemplate = PIConnection.tweetEFTemplate.AttributeTemplates["Latitude"];
+
+                tweets = AFEventFrame.FindEventFramesByAttribute(
+                    null,
+                    AFSearchMode.Inclusive,
+                    DateTime.Now.AddDays(-30),
+                    DateTime.Now,
+                    "",
+                    twitterQuery.Name,
+                    new AFDurationQuery[] { new AFDurationQuery(OSIsoft.AF.Search.AFSearchOperator.NotEqual, new TimeSpan(24,0,0)) },
+                    new AFAttributeValueQuery[] { new AFAttributeValueQuery(latitudeTemplate, OSIsoft.AF.Search.AFSearchOperator.NotEqual, "")},
+                    true,
+                    AFSortField.StartTime,
+                    AFSortOrder.Descending,
+                    0,
+                    count
+                );
+            }
+            else
+            {
+                tweets = twitterQuery.GetEventFrames(
+                   DateTime.Now,
+                   0,
+                   count,
+                   AFEventFrameSearchMode.BackwardFromStartTime,
+                   "",
+                   null,
+                   PIConnection.tweetEFTemplate
+                );
+            }
 
             // Build up the model that i'm going to use
             List<TweetModel> tweetModelList = new List<TweetModel>();
@@ -114,7 +143,9 @@ namespace Hackathon
                     id = ef.Attributes["id"].GetValue().Value.ToString(),
                     user_name = ef.Attributes["User name"].GetValue().Value.ToString(),
                     profile_url = ef.Attributes["profile_image_url"].GetValue().Value.ToString(),
-                    text = ef.Attributes["Text"].GetValue().ToString()
+                    text = ef.Attributes["Text"].GetValue().ToString(),
+                    latitude = ef.Attributes["Latitude"].GetValue().Value.ToString(),
+                    longitude = ef.Attributes["Longitude"].GetValue().Value.ToString()
                 });
             }
 
@@ -123,6 +154,7 @@ namespace Hackathon
                 id = queryID.ToString(),
                 name = twitterQuery.Attributes["Query"].GetValue().ToString(),
                 active = bool.Parse(twitterQuery.Attributes["Active"].GetValue().Value.ToString()),
+                location = location_based,
                 queryTime = DateTime.Now,
                 tweets = tweetModelList
             };

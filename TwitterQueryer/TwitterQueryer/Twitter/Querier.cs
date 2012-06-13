@@ -13,7 +13,7 @@ namespace TwitterQueryer.Twitter
     {
         public static RestClient client = new RestClient("http://search.twitter.com/");
 
-        public static void QueryTwitter(string queryString)
+        public static void QueryTwitter(string queryString, string location_query="")
         {
             // Create the request for Twitter's API
             IRestRequest tqRequest = new RestRequest("search.json", Method.POST);
@@ -37,6 +37,13 @@ namespace TwitterQueryer.Twitter
                 // Try to use the last query found
                 var max_id = queryElement.Attributes["max_id"].GetValue().ToString();
                 tqRequest.AddParameter("since_id", max_id);
+            }
+
+            if (location_query != "")
+            {
+                queryElement.Attributes["Location Based"].SetValue(new AFValue(true));
+                queryElement.Attributes["Location Query"].SetValue(new AFValue(location_query));
+                tqRequest.AddParameter("geocode", location_query);
             }
 
             try

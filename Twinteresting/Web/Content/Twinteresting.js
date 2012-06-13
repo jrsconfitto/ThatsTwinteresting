@@ -38,13 +38,24 @@ $(document).ready(function () {
         // Post to my querying service
         var query_data = $('#queryTerms').val();
 
-        $.ajax({
-            type: 'POST',
-            url: 'http://localhost:1111/query/' + query_data,
-            complete: function () {
-                fillQueries();
-            }
-        });
+        if ($('#location').val() == "") {
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:1111/query/' + query_data,
+                complete: function () {
+                    fillQueries();
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:1111/query/' + query_data + '/' + $('#location').val(),
+                complete: function () {
+                    fillQueries();
+                }
+            });
+        }
 
         // Clear the input box
         $('#queryTerms').val("");
@@ -57,7 +68,7 @@ $(document).ready(function () {
         }
     })
 
-    $('#monitor').click(function () {
+    $('#monitor').click(function (e) {
         //todo: grab the location as well
         e.preventDefault();
         sendQuery();

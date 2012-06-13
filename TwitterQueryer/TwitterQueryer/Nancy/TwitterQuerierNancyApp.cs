@@ -14,6 +14,19 @@ namespace TwitterQueryer
     {
         public TwitterQuerierNancyApp()
         {
+            Post["/query/{query}/{location}"] = parameters =>
+            {
+                var query = parameters.query;
+                var location = parameters.location;
+                
+                Console.WriteLine(String.Format("Request to search for {0} received", query));
+
+                // Start a Twitter Query for that data
+                TwitterQueryer.Twitter.Querier.QueryTwitter(query, location);
+
+                return null;
+            };
+
             Post["/query/{query}"] = parameters =>
             {
                 var query = parameters.query;

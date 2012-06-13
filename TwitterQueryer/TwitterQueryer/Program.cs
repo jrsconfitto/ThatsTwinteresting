@@ -65,7 +65,17 @@ namespace TwitterQueryer
                 if (active)
                 {
                     Console.WriteLine("My service is checking Twitter for the {0} query.", queryElement.Name);
-                    TwitterQueryer.Twitter.Querier.QueryTwitter(queryElement.Name);
+
+                    var location_based_query = Boolean.Parse(queryElement.Attributes["Location based"].GetValue().Value.ToString());
+                    if (location_based_query)
+                    {
+                        var location_query_string = queryElement.Attributes["Location Query"].GetValue().Value.ToString();
+                        TwitterQueryer.Twitter.Querier.QueryTwitter(queryElement.Name, location_query_string);
+                    }
+                    else
+                    {
+                        TwitterQueryer.Twitter.Querier.QueryTwitter(queryElement.Name);
+                    }
                 }
                 else
                 {
