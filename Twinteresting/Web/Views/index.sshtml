@@ -78,6 +78,7 @@
           <form class="well form-search">
             <input id="address" type="text" class="input-medium search-query">
             <a id="findLocations" class="btn" href="#">Suggest locations</a>
+            <br>
             <div id="locationRadios">
             </div>
           </form>
@@ -110,6 +111,14 @@
       </div>
 
       <div id="queryResults">
+      </div>
+
+      <br>
+
+      <div class="row"> 
+        <div class="span12">
+          <p>Items <span class="label label-success">in green</span> represent queries within a region</p>
+        </div>
       </div>
 
       <hr>

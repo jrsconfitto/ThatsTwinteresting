@@ -66,6 +66,8 @@ $(document).ready(function () {
 
         // Clear the input box
         $('#queryTerms').val("");
+        $('#location').val("");
+        $("#searchLocation").removeAttr("checked");
     }
 
     $('#queryTerms').keypress(function (e) {
