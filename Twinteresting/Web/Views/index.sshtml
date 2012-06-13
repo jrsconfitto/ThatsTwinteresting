@@ -50,9 +50,10 @@
   </header>
 
   <script id="locationTemplate" type="text/template">
-    <li>
-      <a class="possibleLocation" data-latitude="{{latitude}}" data-longitude="{{longitude}}">{{name}}</a>
-    </li>
+    <label class="radio">
+      <input type="radio" name="optionsRadios" value="{{latitude}},{{longitude}},50mi" checked="">
+      {{name}}
+    </label>
   </script>
 
   <div role="main">
@@ -77,12 +78,12 @@
           <form class="well form-search">
             <input id="address" type="text" class="input-medium search-query">
             <a id="findLocations" class="btn" href="#">Suggest locations</a>
+            <div id="locationRadios">
+            </div>
           </form>
-          <ul id="whatHaveWeFound">
-          </ul>
         </div>
         <div class="modal-footer">
-          <a href="#" class="btn btn-primary" data-dismiss="modal">Use selected location</a>
+          <a href="#" id="useLocation" class="btn btn-primary" data-dismiss="modal">Use selected location</a>
         </div>
       </div>
            

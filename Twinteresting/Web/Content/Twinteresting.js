@@ -89,13 +89,18 @@ $(document).ready(function () {
                 });
 
                 var rendered = [];
-                
-                validLocations.map(function(location) {
+
+                validLocations.map(function (location) {
                     rendered.push(locationTemplate.render(location));
                 });
 
-                $('#whatHaveWeFound').html(rendered.join(' '));
+                $('#locationRadios').html(rendered.join(' '));
             }
+        });
+
+        $('#useLocation').click(function () {
+            var selectedLocationValue = $('#locationRadios input[name=optionsRadios]:checked').val();
+            $('#location').val(selectedLocationValue);
         });
     });
 });
