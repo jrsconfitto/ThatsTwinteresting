@@ -1,5 +1,7 @@
 # ThatsTwinteresting
 
+[ThatsTwinteresting project page](http://jugglingnutcase.github.com/ThatsTwinteresting)
+
 Yeah, it's the best name ever. i know.
 
 This is a fun project built during the ConnectedWorld Magazine conference for the Hackathon. 
