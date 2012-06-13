@@ -5,8 +5,9 @@ using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using Hackathon.PI_AF;
 
-namespace NancyCSharpWORK
+namespace Hackathon
 {
     public class Program
     {
@@ -15,8 +16,8 @@ namespace NancyCSharpWORK
             if (args.Length != 0)
             {
                 // Connect to my AF Server
-                NancyCSharpWORK.PI_AF.PIConnection.Connect(args[0], args[1], args[2], args[3]);
-                if (PI_AF.PIConnection.afDB.PISystem.ConnectionInfo.IsConnected)
+                PIConnection.Connect(args[0], args[1], args[2], args[3]);
+                if (PIConnection.afDB.PISystem.ConnectionInfo.IsConnected)
                 {
                     Console.WriteLine("PI is connected");
                 }

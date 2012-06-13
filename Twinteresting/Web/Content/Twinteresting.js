@@ -27,6 +27,9 @@
 
 // Once everything is ready
 $(document).ready(function () {
+    // Compile a template
+    var locationTemplate = Hogan.compile($('#locationTemplate').html());
+
     // Fill the queries in on the initial page load
     fillQueries();
 
@@ -58,5 +61,41 @@ $(document).ready(function () {
         //todo: grab the location as well
         e.preventDefault();
         sendQuery();
+    });
+
+    // Location checkbox used
+    $('#searchLocation').change(function () {
+        $('#myModal').modal('show');
+    });
+
+    // Search for locations relevant to the user's search
+    $('#findLocations').click(function () {
+        var location = $('#address').val();
+
+        // Query Twitter's API for viable locations
+        $.ajax({
+            url: '/locations/' + location,
+            method: "GET",
+            success: function (data) {
+                var validLocations = [];
+
+                data.forEach(function (result) {
+                    var city = {};
+                    city.name = result.full_name;
+                    city.latitude = result.bounding_box.coordinates[0][0][0];
+                    city.longitude = result.bounding_box.coordinates[0][0][1];
+
+                    validLocations.push(city);
+                });
+
+                var rendered = [];
+                
+                validLocations.map(function(location) {
+                    rendered.push(locationTemplate.render(location));
+                });
+
+                $('#whatHaveWeFound').html(rendered.join(' '));
+            }
+        });
     });
 });

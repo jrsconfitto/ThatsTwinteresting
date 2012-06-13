@@ -9,15 +9,36 @@ using System.Linq;
 using System.Text;
 
 // So i can access my bad global variables more easily
-using NancyCSharpWORK.PI_AF;
+using Hackathon.PI_AF;
 
-namespace NancyCSharpWORK
+namespace Hackathon
 {
     public class NancyApp : NancyModule
     {
         public NancyApp()
         {
             Get["/"] = _ => View["Views/index"];
+
+            Get["/locations/{query}"] = parameters =>
+            {
+                var query = parameters.query;
+
+                // Create the request for Twitter's API
+                RestClient twitterLocationClient = new RestClient("http://api.twitter.com/1/geo/");
+                IRestRequest geoRequest = new RestRequest("search.json", Method.POST);
+                geoRequest.AddParameter("query", query);
+
+                IRestResponse<Hackathon.TwitterAPI.TwitterGeoResult> geoResponse = twitterLocationClient.Execute<Hackathon.TwitterAPI.TwitterGeoResult>(geoRequest);
+
+                if (geoResponse.Data != null && geoResponse.Data.result != null)
+                {
+                    return Response.AsJson(geoResponse.Data.result.places);
+                }
+                else
+                {
+                    return Response.AsJson("");
+                }
+            };
 
             //todo: this will have to take some extra parameters for going through query results
             Get["/query/{id}/{count}"] = parameters =>

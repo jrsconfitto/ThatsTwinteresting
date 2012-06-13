@@ -39,7 +39,6 @@ namespace TwitterQueryer.Twitter
                 tqRequest.AddParameter("since_id", max_id);
             }
 
-
             try
             {
                 // Log the request to Console

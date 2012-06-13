@@ -28,7 +28,7 @@
   <!-- All JavaScript at the bottom, except this Modernizr build.
        Modernizr enables HTML5 elements & feature detects for optimal performance.
        Create your own custom Modernizr build: www.modernizr.com/download/ -->
-  <script src="Web/Content/modernizr-2.5.3.min.js"></script>
+  <script src="@Path['~/Web/Content/modernizr-2.5.3.min.js']"></script>
 </head>
 <body>
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
@@ -49,6 +49,12 @@
     </div>    
   </header>
 
+  <script id="locationTemplate" type="text/template">
+    <li>
+      <a class="possibleLocation" data-latitude="{{latitude}}" data-longitude="{{longitude}}">{{name}}</a>
+    </li>
+  </script>
+
   <div role="main">
     <div class="container">
     
@@ -61,7 +67,25 @@
       </div>
 
       <hr>
-      
+
+      <div class="modal hide" id="myModal">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h3>Pick a location to use</h3>
+        </div>
+        <div class="modal-body">
+          <form class="well form-search">
+            <input id="address" type="text" class="input-medium search-query">
+            <a id="findLocations" class="btn" href="#">Suggest locations</a>
+          </form>
+          <ul id="whatHaveWeFound">
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-primary" data-dismiss="modal">Use selected location</a>
+        </div>
+      </div>
+           
       <div class="row">
         <div class="span12">
           <h2>What do you want to monitor?</h2>

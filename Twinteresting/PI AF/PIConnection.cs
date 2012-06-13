@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 
-namespace NancyCSharpWORK.PI_AF
+namespace Hackathon.PI_AF
 {
     public class PIConnection
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NancyCSharpWORK.PI_AF
+namespace Hackathon.PI_AF
 {
     public class TwitterQueryModel
     {
