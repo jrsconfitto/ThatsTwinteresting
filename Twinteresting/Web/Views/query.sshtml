@@ -38,7 +38,7 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">Twinteresting</a>
+          <a class="brand" href="@Path['~/']">Twinteresting</a>
           <ul class="nav">
             <li>
               <a href="/about">About</a>
@@ -63,6 +63,23 @@
       <hr>
 
       <div class="row">
+        <div class="span2 offset4">
+          <p>
+            Set active
+            <!--
+            @If.Active
+            <a id="setInactive" class="btn btn-info" href="#">Set inactive</a>
+            @EndIf
+            @IfNot.Active
+            <a id="setActive" class="btn btn-info" href="#">Set active</a>
+            @EndIf
+            -->
+          </p>
+        </div>
+      </div>
+
+      @If.Hastweets
+      <div class="row">
         <div class="span12">
           <h2>Recorded tweets</h2>
         </div>
@@ -71,13 +88,22 @@
       @Each.tweets
       <div class="row">
         <div class="span12">
-          <p>From user @Current.user_name : @Current.text</p>
+          <p>
+            <a href="http://twitter.com/@Current.user_name">@Current.user_name</a>: @Current.text
+          </p>
         </div>
       </div>
       @EndEach
+      @EndIf
+      @IfNot.Hastweets
+      <div class="row">
+        <div class="span12">
+          <p>Looks like no one has tweeted about that yet.</p>
+        </div>
+      </div> 
+      @EndIf
     </div>
   </div>
-
     
   <footer>
     <hr>
