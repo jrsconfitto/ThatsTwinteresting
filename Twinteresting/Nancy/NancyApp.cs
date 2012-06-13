@@ -19,6 +19,8 @@ namespace Hackathon
         {
             Get["/"] = _ => View["Views/index"];
 
+            Get["/about"] = _ => View["Views/about"];
+
             Get["/locations/{query}"] = parameters =>
             {
                 var query = parameters.query;
