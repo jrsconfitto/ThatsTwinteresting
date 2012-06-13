@@ -73,14 +73,16 @@ namespace Hackathon
                 {
                     var queryActive = queryElement.Attributes["Active"].GetValue().Value.ToString();
                     var timestamp = queryElement.Attributes["Query Start Time"].GetValue().ToString();
-
+                    var location_query = queryElement.Attributes["Location Query"].GetValue().ToString();
+                    
                     elementsModel.Add(
                         new TwitterQueryModel()
                         {
                             id = queryElement.ID.ToString(),
                             name = queryElement.Name,
                             active = bool.Parse(queryActive),
-                            queryTime = DateTime.Parse(timestamp)
+                            queryTime = DateTime.Parse(timestamp),
+                            location = location_query != "0"
                         }
                     );
                 }

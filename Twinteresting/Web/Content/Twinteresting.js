@@ -13,7 +13,14 @@
 
                 data.splice(0, 4).forEach(function (query) {
                     queryRows.push('<div class="span3">');
-                    queryRows.push(' <a href="/query/' + query.id + '" class="btn btn-info">' + query.name + '</a>');
+
+                    if (query.location) {
+                        queryRows.push(' <a href="/query/' + query.id + '" class="btn btn-success">' + query.name + '</a>');
+                    }
+                    else {
+                        queryRows.push(' <a href="/query/' + query.id + '" class="btn btn-info">' + query.name + '</a>');
+                    }
+
                     queryRows.push('</div>');
                 });
 

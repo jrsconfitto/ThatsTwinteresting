@@ -55,7 +55,7 @@
       <div class="row">
         <div class="span12">
           <h1>
-            @Model.name <small>Query details</small> @If.location<span class="label label-info">Uses location</span>@EndIf
+            @Model.name <small>Query details</small> @If.location<span class="label label-success">Uses location</span>@EndIf
           </h1>
         </div>
       </div>
