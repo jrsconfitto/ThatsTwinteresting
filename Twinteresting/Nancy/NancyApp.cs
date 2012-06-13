@@ -65,7 +65,7 @@ namespace Hackathon
                     true,
                     AFSortField.Name,
                     AFSortOrder.Ascending,
-                    12);
+                    100);
 
                 List<TwitterQueryModel> elementsModel = new List<TwitterQueryModel>();
 
