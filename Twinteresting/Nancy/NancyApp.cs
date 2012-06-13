@@ -101,38 +101,38 @@ namespace Hackathon
             var location_based = twitterQuery.Attributes["Location Query"].GetValue().Value.ToString() != "0";
 
             AFNamedCollectionList<AFEventFrame> tweets;
-            if (location_based)
-            {
-                AFAttributeTemplate latitudeTemplate = PIConnection.tweetEFTemplate.AttributeTemplates["Latitude"];
+            //if (location_based)
+            //{
+            //    AFAttributeTemplate latitudeTemplate = PIConnection.tweetEFTemplate.AttributeTemplates["Latitude"];
 
-                tweets = AFEventFrame.FindEventFramesByAttribute(
-                    null,
-                    AFSearchMode.Inclusive,
-                    DateTime.Now.AddDays(-30),
-                    DateTime.Now,
-                    "",
-                    twitterQuery.Name,
-                    new AFDurationQuery[] { new AFDurationQuery(OSIsoft.AF.Search.AFSearchOperator.NotEqual, new TimeSpan(24,0,0)) },
-                    new AFAttributeValueQuery[] { new AFAttributeValueQuery(latitudeTemplate, OSIsoft.AF.Search.AFSearchOperator.NotEqual, "")},
-                    true,
-                    AFSortField.StartTime,
-                    AFSortOrder.Descending,
-                    0,
-                    count
-                );
-            }
-            else
-            {
-                tweets = twitterQuery.GetEventFrames(
-                   DateTime.Now,
-                   0,
-                   count,
-                   AFEventFrameSearchMode.BackwardFromStartTime,
-                   "",
-                   null,
-                   PIConnection.tweetEFTemplate
-                );
-            }
+            //    tweets = AFEventFrame.FindEventFramesByAttribute(
+            //        null,
+            //        AFSearchMode.Inclusive,
+            //        DateTime.Now.AddDays(-30),
+            //        DateTime.Now,
+            //        "",
+            //        twitterQuery.Name,
+            //        new AFDurationQuery[] { new AFDurationQuery(OSIsoft.AF.Search.AFSearchOperator.NotEqual, new TimeSpan(24,0,0)) },
+            //        new AFAttributeValueQuery[] { new AFAttributeValueQuery(latitudeTemplate, OSIsoft.AF.Search.AFSearchOperator.NotEqual, "")},
+            //        true,
+            //        AFSortField.StartTime,
+            //        AFSortOrder.Descending,
+            //        0,
+            //        count
+            //    );
+            //}
+            //else
+            //{
+            tweets = twitterQuery.GetEventFrames(
+               DateTime.Now,
+               0,
+               count,
+               AFEventFrameSearchMode.BackwardFromStartTime,
+               "",
+               null,
+               PIConnection.tweetEFTemplate
+            );
+            //}
 
             // Build up the model that i'm going to use
             List<TweetModel> tweetModelList = new List<TweetModel>();
