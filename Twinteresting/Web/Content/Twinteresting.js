@@ -56,6 +56,7 @@ $(document).ready(function () {
 
     $('#monitor').click(function () {
         //todo: grab the location as well
+        e.preventDefault();
         sendQuery();
     });
 });
