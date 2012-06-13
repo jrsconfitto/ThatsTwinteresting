@@ -112,7 +112,12 @@ $(document).ready(function () {
                     rendered.push(locationTemplate.render(location));
                 });
 
-                $('#locationRadios').html(rendered.join(' '));
+                if (rendered.length != 0) {
+                    $('#locationRadios').html(rendered.join(' '));
+                }
+                else {
+                    $('#locationRadios').html('<p>No results found, try again</p>');
+                }
             }
         });
 
