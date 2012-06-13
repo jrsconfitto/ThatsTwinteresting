@@ -60,36 +60,43 @@ namespace Hackathon
 
             Get["/results"] = _ =>
             {
-                // Get the queries from the PI AF database
-                AFNamedCollectionList<AFElement> twitterQueryElements = AFElement.FindElementsByTemplate(PIConnection.afDB,
-                    null,
-                    PIConnection.afQueryElementTemplate,
-                    true,
-                    AFSortField.Name,
-                    AFSortOrder.Ascending,
-                    100);
-
-                List<TwitterQueryModel> elementsModel = new List<TwitterQueryModel>();
-
-                foreach (AFElement queryElement in twitterQueryElements)
+                try
                 {
-                    var queryActive = queryElement.Attributes["Active"].GetValue().Value.ToString();
-                    var timestamp = queryElement.Attributes["Query Start Time"].GetValue().ToString();
-                    var location_query = queryElement.Attributes["Location Query"].GetValue().ToString();
-                    
-                    elementsModel.Add(
-                        new TwitterQueryModel()
-                        {
-                            id = queryElement.ID.ToString(),
-                            name = queryElement.Name,
-                            active = bool.Parse(queryActive),
-                            queryTime = DateTime.Parse(timestamp),
-                            location = location_query != "0"
-                        }
-                    );
-                }
+                    // Get the queries from the PI AF database
+                    AFNamedCollectionList<AFElement> twitterQueryElements = AFElement.FindElementsByTemplate(PIConnection.afDB,
+                        null,
+                        PIConnection.afQueryElementTemplate,
+                        true,
+                        AFSortField.Name,
+                        AFSortOrder.Ascending,
+                        100);
 
-                return Response.AsJson(elementsModel);
+                    List<TwitterQueryModel> elementsModel = new List<TwitterQueryModel>();
+
+                    foreach (AFElement queryElement in twitterQueryElements)
+                    {
+                        var queryActive = queryElement.Attributes["Active"].GetValue().Value.ToString();
+                        var timestamp = queryElement.Attributes["Query Start Time"].GetValue().ToString();
+                        var location_query = queryElement.Attributes["Location Query"].GetValue().ToString();
+
+                        elementsModel.Add(
+                            new TwitterQueryModel()
+                            {
+                                id = queryElement.ID.ToString(),
+                                name = queryElement.Name,
+                                active = bool.Parse(queryActive),
+                                queryTime = DateTime.Parse(timestamp),
+                                location = location_query != "0"
+                            }
+                        );
+                    }
+
+                    return Response.AsJson(elementsModel);
+                }
+                catch (Exception ex)
+                {
+                    return "";
+                }
             };
         }
 
