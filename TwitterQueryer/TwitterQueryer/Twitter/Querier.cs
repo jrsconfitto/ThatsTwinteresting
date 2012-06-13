@@ -50,8 +50,6 @@ namespace TwitterQueryer.Twitter
                 // Query finished
                 if (queryResponse != null)
                 {
-                    Console.WriteLine(queryResponse.Data);
-
                     TweetResponse result = queryResponse.Data;
 
                     // Feed in the AFElement's attributes from the results of the Query
@@ -102,10 +100,6 @@ namespace TwitterQueryer.Twitter
             catch (Exception ex)
             {
                 Console.WriteLine("Exception: " + ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine();
             }
         }
     }
