@@ -15,6 +15,10 @@ namespace TwitterQueryer.Twitter
 
         public static void QueryTwitter(string queryString)
         {
+            // Create the request for Twitter's API
+            IRestRequest tqRequest = new RestRequest("search.json", Method.POST);
+            tqRequest.AddParameter("q", queryString);
+
             // Create a PI Twitter Query Element for the query if it's not already present
             OSIsoft.AF.Asset.AFElement queryElement = PIConnection.afDB.Elements[queryString];
 
@@ -31,12 +35,10 @@ namespace TwitterQueryer.Twitter
             else
             {
                 // Try to use the last query found
-                AFEventFrame.FindEventFrames(PIConnection.afDB,
+                var max_id = queryElement.Attributes["max_id"].GetValue().ToString();
+                tqRequest.AddParameter("since_id", max_id);
             }
 
-            // Create the request for Twitter's API
-            IRestRequest tqRequest = new RestRequest("search.json", Method.POST);
-            tqRequest.AddParameter("q", queryString);
 
             try
             {
@@ -62,13 +64,14 @@ namespace TwitterQueryer.Twitter
                     foreach (Result tweet in result.results)
                     {
                         // Create a new EventFrame for each tweet and fill in its attributes
+                        //todo: make sure i'm not duplicating a tweet
                         AFEventFrame tweetEF = new AFEventFrame(PIConnection.afDB, "tweet #" + tweet.id_str, PIConnection.tweetEFTemplate);
                         tweetEF.PrimaryReferencedElement = queryElement;
 
                         // Timing
                         tweetEF.SetStartTime(tweet.created_at);
                         tweetEF.SetEndTime(tweet.created_at);
-                        tweetEF.Description = String.Format("{0} tweet from {1}", queryElement.Name , tweet.from_user);
+                        tweetEF.Description = String.Format("{0} tweet from {1}", queryElement.Name, tweet.from_user);
 
                         // Attributes
                         tweetEF.Attributes["id"].SetValue(new AFValue(tweet.id_str));
@@ -99,6 +102,10 @@ namespace TwitterQueryer.Twitter
             catch (Exception ex)
             {
                 Console.WriteLine("Exception: " + ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine();
             }
         }
     }
