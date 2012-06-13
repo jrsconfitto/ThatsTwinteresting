@@ -64,10 +64,14 @@
       
       <div class="row">
         <div class="span12">
-          <h2>What do you want to search Twitter for?</h2>
+          <h2>What do you want to monitor?</h2>
           <form class="well form-search">
             <input id="queryTerms" type="text" class="input-xlarge search-query">
-            <button id="search" class="btn">Search</button>
+            <label class="checkbox">
+                <input id="searchLocation" type="checkbox"> Monitor within a location
+            </label>
+            <input id="location" type="text" class="input-xlarge"></input>
+            <button id="monitor" class="btn">Monitor</button>
           </form>
         </div>
       </div>

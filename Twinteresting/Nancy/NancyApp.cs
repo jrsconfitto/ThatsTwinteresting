@@ -19,50 +19,19 @@ namespace NancyCSharpWORK
         {
             Get["/"] = _ => View["Views/index"];
 
-            Get["/query/{id}"] = paramters =>
-            {
-                var id = paramters.id;
+            //todo: this will have to take some extra parameters for going through query results
+            Get["/query/{id}/{count}"] = parameters => {
+                var id = parameters.id;
+                var count = parameters.count;
 
-                // Get the Element with that Guid
-                Guid queryID = new Guid(id);
-
-                AFElement twitterQuery = AFElement.FindElement(PIConnection.afDB.PISystem, queryID);
-                AFNamedCollectionList<AFEventFrame> tweets = twitterQuery.GetEventFrames(
-                    DateTime.Now,
-                    0,
-                    25,
-                    AFEventFrameSearchMode.BackwardFromStartTime,
-                    "",
-                    null,
-                    PIConnection.tweetEFTemplate
-                );
-
-                // Build up the model that i'm going to use
-                List<TweetModel> tweetModelList = new List<TweetModel>();
-                foreach (AFEventFrame ef in tweets) {
-                    tweetModelList.Add(new TweetModel() {
-                        id = ef.Attributes["id"].GetValue().Value.ToString(),
-                        user_name = ef.Attributes["User name"].GetValue().Value.ToString(),
-                        profile_url = ef.Attributes["profile_image_url"].GetValue().Value.ToString(),
-                        text = ef.Attributes["Text"].GetValue().ToString()
-                    });
-                }
-
-                TwitterQueryModel twitterQueryModel = new TwitterQueryModel()
-                {
-                    id = queryID.ToString(),
-                    name = twitterQuery.Attributes["Query"].GetValue().ToString(),
-                    active = bool.Parse(twitterQuery.Attributes["Active"].GetValue().Value.ToString()),
-                    queryTime = DateTime.Now,
-                    tweets = tweetModelList
-                };
-
-                return View["Views/query", twitterQueryModel];
+                return getQueryTweets(id, count);
             };
 
-            //todo: this will have to take some extra parameters for going through query results
-            Post["/query/{id}"] = parameters => {
-return "";
+            Get["/query/{id}"] = parameters =>
+            {
+                var id = parameters.id;
+
+                return getQueryTweets(id, 25);
             };
 
             Get["/results"] = _ =>
@@ -95,6 +64,45 @@ return "";
 
                 return Response.AsJson(elementsModel);
             };
+        }
+
+        public Response getQueryTweets(string id, int count) {
+
+                // Get the Element with that Guid
+                Guid queryID = new Guid(id);
+
+                AFElement twitterQuery = AFElement.FindElement(PIConnection.afDB.PISystem, queryID);
+                AFNamedCollectionList<AFEventFrame> tweets = twitterQuery.GetEventFrames(
+                    DateTime.Now,
+                    0,
+                    count,
+                    AFEventFrameSearchMode.BackwardFromStartTime,
+                    "",
+                    null,
+                    PIConnection.tweetEFTemplate
+                );
+
+                // Build up the model that i'm going to use
+                List<TweetModel> tweetModelList = new List<TweetModel>();
+                foreach (AFEventFrame ef in tweets) {
+                    tweetModelList.Add(new TweetModel() {
+                        id = ef.Attributes["id"].GetValue().Value.ToString(),
+                        user_name = ef.Attributes["User name"].GetValue().Value.ToString(),
+                        profile_url = ef.Attributes["profile_image_url"].GetValue().Value.ToString(),
+                        text = ef.Attributes["Text"].GetValue().ToString()
+                    });
+                }
+
+                TwitterQueryModel twitterQueryModel = new TwitterQueryModel()
+                {
+                    id = queryID.ToString(),
+                    name = twitterQuery.Attributes["Query"].GetValue().ToString(),
+                    active = bool.Parse(twitterQuery.Attributes["Active"].GetValue().Value.ToString()),
+                    queryTime = DateTime.Now,
+                    tweets = tweetModelList
+                };
+
+                return View["Views/query", twitterQueryModel];
         }
     }
 }
