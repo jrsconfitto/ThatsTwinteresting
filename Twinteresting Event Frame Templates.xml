@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OSIsoft.AF.xsd" SchemaVersion="2.0" SoftwareVersion="2.4.0.4431" ExportMode="AllReferences, NoUniqueID" PISystem="HPG6" Database="Twinteresting" Description="Example database for my Hackathon app" Created="2012-06-14T18:02:16.1176943Z" id="9abfa142-8af1-4947-991d-c5dd5f84cf06" ParentKey="9abfa142-8af1-4947-991d-c5dd5f84cf06" ExportedObject="NamedCollectionList" ExportedType="AFNamedCollectionList`1" Identity="ElementTemplate">
+  <AFElementTemplate>
+    <Name>Tweet</Name>
+    <Description>This event holds each tweet</Description>
+    <Type>None</Type>
+    <InstanceType>EventFrame</InstanceType>
+    <AllowElementToExtend>false</AllowElementToExtend>
+    <AFAttributeTemplate>
+      <Name>id</Name>
+      <Description>The id of the tweet as a string</Description>
+      <Type>String</Type>
+      <Value type="String"></Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Latitude</Name>
+      <Type>String</Type>
+      <Value type="String"></Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Longitude</Name>
+      <Type>String</Type>
+      <Value type="String"></Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>profile_image_url</Name>
+      <Type>String</Type>
+      <Value type="String"></Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Text</Name>
+      <Description>The text of the tweet</Description>
+      <Type>String</Type>
+      <Value type="String"></Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>User id</Name>
+      <Type>String</Type>
+      <Value type="String"></Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>User name</Name>
+      <Type>String</Type>
+      <Value type="String"></Value>
+    </AFAttributeTemplate>
+  </AFElementTemplate>
+</AF>

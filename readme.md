@@ -10,11 +10,22 @@ This is a fun project built during the ConnectedWorld Magazine conference for th
 
 This web app and background service save Twitter queries away in [PI AF](http://www.osisoft.com/software-support/what-is-pi/What_Is_PI.aspx) in order to save those tweets. It builds up a database surrounding your queries and then lets the user sort through that data.
 
-## Building
+## Building and running
 
 This project requires OSIsoft's PI database with access to an AF Server. That's the hard part... if you dont have one already, or don't know about it, then you may want to let this one pass.
 
-Just open the project in Visual Studio and get going. This project may require some other small apps i'm building... but it's still early and i'll figure it out.
+1. Set up AF
+  1. Import the Element Template file into your AF Database
+  2. Import the EventFrame Template file into your AF Database
+2. Open each project and build them
+3. Set the command line parameters for each project (they're both the same)
+  1. PISystem Name
+  2. AF Database Name
+  3. User name for PISystem connection
+  4. Password for PISystem connection
+4. Run both projects
+
+It's ugly, but for now, i have both of the projects mashed together in the same directory but with different solution files in different places (yuck!)
 
 ## Open Source
 

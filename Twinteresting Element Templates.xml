@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OSIsoft.AF.xsd" SchemaVersion="2.0" SoftwareVersion="2.4.0.4431" ExportMode="NoUniqueID" PISystem="HPG6" Database="Twinteresting" Description="Example database for my Hackathon app" Created="2012-06-14T18:02:04.363022Z" id="9abfa142-8af1-4947-991d-c5dd5f84cf06" ParentKey="9abfa142-8af1-4947-991d-c5dd5f84cf06" ExportedObject="NamedCollectionList" ExportedType="AFNamedCollectionList`1" Identity="ElementTemplate">
+  <AFElementTemplate>
+    <Name>Twitter Query</Name>
+    <Description>A twitter query created by my Hackathon project</Description>
+    <Type>None</Type>
+    <InstanceType>Element</InstanceType>
+    <AllowElementToExtend>false</AllowElementToExtend>
+    <AFElementCategoryRef>Hackathon</AFElementCategoryRef>
+    <AFAttributeTemplate>
+      <Name>Active</Name>
+      <Description>Is this query currently active</Description>
+      <Type>Boolean</Type>
+      <Value type="Boolean">True</Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Completed in</Name>
+      <Description>In case you want to monitor the performance of your calls</Description>
+      <Type>String</Type>
+      <Value type="String"></Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Location based</Name>
+      <Description>True if the hash is following a certain location</Description>
+      <Type>Boolean</Type>
+      <Value type="Boolean">False</Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Location Query</Name>
+      <Description>The query string used in the Twitter API</Description>
+      <Type>String</Type>
+      <Value type="String"></Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>max_id</Name>
+      <Description>The maximum id of the Tweets returned by the Search API call</Description>
+      <Type>String</Type>
+      <Value type="String"></Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Query</Name>
+      <Description>The query text itself</Description>
+      <Type>String</Type>
+      <Value type="String"></Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Query Start Time</Name>
+      <Description>The first time the query was made</Description>
+      <Type>DateTime</Type>
+      <Value type="DateTime">2012-06-14 05:00:00Z</Value>
+    </AFAttributeTemplate>
+  </AFElementTemplate>
+</AF>
