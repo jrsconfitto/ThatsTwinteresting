@@ -18,14 +18,21 @@ namespace Hackathon.PI_AF
         /// <summary>
         /// Connects to the PI AF machine
         /// </summary>
-        public static void Connect(string systemName, string databaseName, string user, string pass)
+        public static void Connect(string systemName, string databaseName, string user = "", string pass = "")
         {
             // Get the PI System
             PISystems pisystems = new PISystems();
             PISystem pisystem = pisystems[systemName];
 
             // Connect
-            pisystem.Connect(new NetworkCredential(user, pass, "vcampus"));
+            if (user != "" && pass != "")
+            {
+                pisystem.Connect(new NetworkCredential(user, pass));
+            }
+            else
+            {
+                pisystem.Connect();
+            }
 
             // Grab the database
             afDB = pisystem.Databases[databaseName];

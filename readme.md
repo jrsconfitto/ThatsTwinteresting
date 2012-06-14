@@ -21,8 +21,8 @@ This project requires OSIsoft's PI database with access to an AF Server. That's 
 3. Set the command line parameters for each project (they're both the same)
   1. PISystem Name
   2. AF Database Name
-  3. User name for PISystem connection
-  4. Password for PISystem connection
+  3. User name for PISystem connection (optional)
+  4. Password for PISystem connection (optional)
 4. Run both projects
 
 It's ugly, but for now, i have both of the projects mashed together in the same directory but with different solution files in different places (yuck!)

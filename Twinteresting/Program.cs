@@ -13,15 +13,23 @@ namespace Hackathon
     {
         static void Main(string[] args)
         {
-            if (args.Length != 0)
+            if (args.Length >= 2)
             {
                 // Connect to my AF Server
                 string piSystemName = args[0];
                 string afDBName = args[1];
-                string username = args[2];
-                string password = args[3];
 
-                PIConnection.Connect(piSystemName, afDBName, username, password );
+                if (args.Length == 4)
+                {
+                    string username = args[2];
+                    string password = args[3];
+                    PIConnection.Connect(piSystemName, afDBName, username, password);
+                }
+                else
+                {
+                    PIConnection.Connect(piSystemName, afDBName);
+                }
+
                 if (PIConnection.afDB.PISystem.ConnectionInfo.IsConnected)
                 {
                     Console.WriteLine("PI is connected");

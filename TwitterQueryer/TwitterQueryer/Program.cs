@@ -18,28 +18,47 @@ namespace TwitterQueryer
     {
         static void Main(string[] args)
         {
-            var baseUrl = "http://localhost:1111/";
+            if (args.Length >= 2)
+            {
+                var baseUrl = "http://localhost:1111/";
 
-            Console.WriteLine(String.Format("We're operating on a different port! {0}", baseUrl));
+                Console.WriteLine(String.Format("We're operating on a different port! {0}", baseUrl));
 
-            // Connect to my AF Server
-            TwitterQueryer.PI_AF.PIConnection.Connect(args[0], args[1], args[2], args[3]);
+                // Connect to my AF Server
+                string piSystemName = args[0];
+                string afDBName = args[1];
 
-            // Verify the connection on the console
-            Console.WriteLine(String.Format("AF Database {0} is connected!", PI_AF.PIConnection.afDB.Name));
+                if (args.Length == 4)
+                {
+                    string username = (args.Length == 4) ? args[2] : "";
+                    string password = (args.Length == 4) ? args[3] : "";
+                    PIConnection.Connect(piSystemName, afDBName, username, password);
+                }
+                else
+                {
+                    PIConnection.Connect(piSystemName, afDBName);
+                }
 
-            // Start up the Nancy web api for my project
-            var host = new WebServiceHost(new NancyWcfGenericService(),
-                                          new Uri(baseUrl));
-            host.AddServiceEndpoint(typeof(NancyWcfGenericService), new WebHttpBinding(), "");
-            host.Open();
+                // Verify the connection on the console
+                Console.WriteLine(String.Format("AF Database {0} is connected!", PI_AF.PIConnection.afDB.Name));
 
-            // Start up a thread that will watch for any new queries
-            var timer = new System.Timers.Timer(10000);
+                // Start up the Nancy web api for my project
+                var host = new WebServiceHost(new NancyWcfGenericService(),
+                                              new Uri(baseUrl));
+                host.AddServiceEndpoint(typeof(NancyWcfGenericService), new WebHttpBinding(), "");
+                host.Open();
 
-            // Start up a timer to continuously query Twitter
-            timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
-            timer.Start();
+                // Start up a thread that will watch for any new queries
+                var timer = new System.Timers.Timer(10000);
+
+                // Start up a timer to continuously query Twitter
+                timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
+                timer.Start();
+            }
+            else
+            {
+                Console.WriteLine("Please provide arguments for the PI System");
+            }
 
             Console.ReadLine();
         }
