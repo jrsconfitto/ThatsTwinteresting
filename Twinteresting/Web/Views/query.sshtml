@@ -23,12 +23,10 @@
   <!--<link rel="stylesheet" href="Web/Content/style.css">-->
   <link rel="stylesheet" href="@Path['~/Web/Content/bootstrap.css']" />
 
-  @If.location
   <link rel="stylesheet" href="@Path['~/Web/Content/leaflet.css']" />
   <!--[if lte IE 8]>
     <link rel="stylesheet" href="[path-to-dist]/leaflet.ie.css" />
   <![endif]--> 
-  @EndIf
 
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
