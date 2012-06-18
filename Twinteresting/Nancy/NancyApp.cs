@@ -152,9 +152,10 @@ namespace Hackathon
                 string loc_link;
                 string lat = ef.Attributes["Latitude"].GetValue().Value.ToString();
                 string longi = ef.Attributes["Longitude"].GetValue().Value.ToString();
+                string content = ef.Attributes["Text"].GetValue().ToString();
 
                 if (lat != "" && longi != "") {
-                    loc_link = string.Format(@"<a href=""https://maps.google.com/maps?q=loc:{0},{1}"">(Location)</a>", lat, longi);
+                    loc_link = string.Format(@"<a class=""showLocation"" href=""#"" data-latitude=""{0}"" data-longitude=""{1}"" data-tweet=""{2}"">Show Location</a>", lat, longi, content);
                 }
                 else {
                     loc_link = "";
@@ -164,7 +165,7 @@ namespace Hackathon
                     id = ef.Attributes["id"].GetValue().Value.ToString(),
                     user_name = ef.Attributes["User name"].GetValue().Value.ToString(),
                     profile_url = ef.Attributes["profile_image_url"].GetValue().Value.ToString(),
-                    text = ef.Attributes["Text"].GetValue().ToString(),
+                    text = content,
                     latitude = lat,
                     longitude = longi,
                     location_link = loc_link

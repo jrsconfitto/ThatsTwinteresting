@@ -21,7 +21,14 @@
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
   <!--<link rel="stylesheet" href="Web/Content/style.css">-->
-  <link rel="stylesheet" href="@Path['~/Web/Content/bootstrap.css']">
+  <link rel="stylesheet" href="@Path['~/Web/Content/bootstrap.css']" />
+
+  @If.location
+  <link rel="stylesheet" href="@Path['~/Web/Content/leaflet.css']" />
+  <!--[if lte IE 8]>
+    <link rel="stylesheet" href="[path-to-dist]/leaflet.ie.css" />
+  <![endif]--> 
+  @EndIf
 
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
@@ -61,6 +68,12 @@
       </div>
 
       <hr>
+
+      @If.location
+      <div id="mapbox" style="height: 200px;"></div>
+
+      <hr>
+      @EndIf
 
       @If.Hastweets
       <div class="row">
@@ -118,15 +131,42 @@
   <script src="@Path['~/Web/Content/plugins.js']"></script>
   <script src="@Path['~/Web/Content/script.js']"></script>
   <script src="@Path['~/Web/Content/bootstrap.min.js']"></script>
+  <script src="@Path['~/Web/Content/leaflet.js']"></script>
+  <script src="@Path['~/Web/Content/wax.leaf.min.js']"></script>
   <!-- end scripts -->
 
-  <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
-       mathiasbynens.be/notes/async-analytics-snippet -->
-  <!--<script>
-    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g,s)}(document,'script'));
-  </script>-->
+  <script type="text/javascript">
+    $(document).ready(function() {
+      // Define the map to use from MapBox 
+      // This is the TileJSON endpoint copied from the embed button on your map
+      var url = 'http://a.tiles.mapbox.com/v3/jugglingnutcase.map-p7s96trg.jsonp';
+
+      // Make a new Leaflet map in your container div
+      var map = new L.Map('mapbox');  // container's id="mapbox"
+
+      // Get metadata about the map from MapBox
+      wax.tilejson(url, function(tilejson) {
+          map.addLayer(new wax.leaf.connector(tilejson));
+      });  
+
+      // When a tweet is clicked
+      $('.showLocation').click(function() {
+        var tweetLatitude = $(this).attr('data-latitude');
+        var tweetLongitude = $(this).attr('data-longitude');
+        var tweetContent = $(this).attr('data-tweet');
+
+        // Center the map on the clicked tweet at zoom 15
+        map.setView(new L.LatLng(tweetLatitude, tweetLongitude), 7);
+
+        // Create a marker, set its properties, and popup content at those coordinates
+        var markerLocation = new L.LatLng(tweetLatitude, tweetLongitude);
+        var marker = new L.Marker(markerLocation);
+        marker.bindPopup(tweetContent).openPopup();
+
+        // Add the marker to the map
+        map.addLayer(marker);
+      });
+    });
+  </script>
 </body>
 </html>

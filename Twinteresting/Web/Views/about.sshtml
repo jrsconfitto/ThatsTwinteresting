@@ -76,8 +76,8 @@
           <h2>Why?</h2>
           <p>Twitter provides a search API but it only goes back 6-9 days.</p>
           <p>
-          So what do you do if you want to monitor a Twitter campaign and have that data a month later to gauge its success?
-          This app uses PI AF and Event Frames to monitor what you're interested in.
+            So what do you do if you want to monitor a Twitter campaign and have that data a month later to gauge its success?
+            This app uses PI AF and Event Frames to monitor what you're interested in.
           </p>
         </div>
       </div>
