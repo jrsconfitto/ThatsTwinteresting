@@ -69,11 +69,9 @@
 
       <hr>
 
-      @If.location
       <div id="mapbox" style="height: 200px;"></div>
 
       <hr>
-      @EndIf
 
       @If.Hastweets
       <div class="row">
