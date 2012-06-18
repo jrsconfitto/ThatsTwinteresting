@@ -67,7 +67,7 @@
 
       <hr>
 
-      <div id="mapbox" style="height: 200px;"></div>
+      <div id="mapbox" style="height: 300px;"></div>
 
       <hr>
 
@@ -145,13 +145,16 @@
           map.addLayer(new wax.leaf.connector(tilejson));
       });  
 
+      // Center the map at Pheasant Run for now
+      map.setView(new L.LatLng(41.920673, -88.255363), 5);
+
       // When a tweet is clicked
       $('.showLocation').click(function() {
         var tweetLatitude = $(this).attr('data-latitude');
         var tweetLongitude = $(this).attr('data-longitude');
         var tweetContent = $(this).attr('data-tweet');
 
-        // Center the map on the clicked tweet at zoom 15
+        // Center the map on the clicked tweet
         map.setView(new L.LatLng(tweetLatitude, tweetLongitude), 7);
 
         // Create a marker, set its properties, and popup content at those coordinates
