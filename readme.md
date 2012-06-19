@@ -22,7 +22,8 @@ This project requires OSIsoft's PI database with access to an AF Server. That's 
   3. User name for PISystem connection (optional)
   4. Password for PISystem connection (optional)
 
-i've put in a lot of work to make it as easy as possible to build and run out of the gate. If i'm missing something or it doesn't work for you, i beg you to let me know! There's github issues or you can tweet me [@jugglingnutcase](https://twitter.com/jugglingnutcase)
+i've put in a lot of work to make it as easy as possible to build and run out of the gate. If i'm missing something or it doesn't work for you, i beg you to let me know! There's github issues or you can tweet me [@jugglingnutcase](https://twitter.com/jugglingnutcase).
+
 ## Open Source
 
 i used a few open source libraries to get a few things done faster:
