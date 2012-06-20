@@ -49,7 +49,7 @@ namespace TwitterQueryer
                 host.Open();
 
                 // Start up a thread that will watch for any new queries
-                var timer = new System.Timers.Timer(10000);
+                var timer = new System.Timers.Timer(20000);
 
                 // Start up a timer to continuously query Twitter
                 timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
