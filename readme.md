@@ -7,13 +7,17 @@ This is a fun project built during the ConnectedWorld Magazine conference for th
 
 ## What it does
 
-This web app and background service save Twitter queries away in [PI AF](http://www.osisoft.com/software-support/what-is-pi/What_Is_PI.aspx) in order to save those tweets (since Twitter's API doesn't give you data older that 6-9 days). It builds up a database surrounding your queries and then lets the user sort through that data.
+This web app and background service save Tweets matching queries in [PI AF](http://www.osisoft.com/software-support/what-is-pi/What_Is_PI.aspx) because [Twitter's API doesn't give you data older that 6-9 days](https://dev.twitter.com/docs/using-search). It builds up a database surrounding the queries and then lets the user sort through that data.
 
 ## Requirements
 
 * PI AF Server R3 - This project requires OSIsoft's PI database with access to an AF Server. That's the hard part... if you dont have access to one already, or don't know about it, then you may want to let this app pass.
 * .NET 4.0
 * AFSDK 2.4.0.4431
+
+## Run from the executable
+
+[Download the executable](https://github.com/downloads/jugglingnutcase/ThatsTwinteresting/Twinteresting-alpha.zip) (it's the very alpha version), extract the zip file, edit the batch file with your PI AF connection parameters , and then launch the batch file. Browse to [localhost:1234](http://localhost:1234) to view the application.
 
 ## Building and running
 
