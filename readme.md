@@ -3,6 +3,8 @@
 This is a fun project built during the ConnectedWorld Magazine conference for the Hackathon. Yeah i know, it's the best name ever.
 [Project web site](http://jugglingnutcase.github.com/ThatsTwinteresting)
 
+![screenshot](https://github.com/jugglingnutcase/ThatsTwinteresting/raw/gh-pages/images/KatieTweets.png)
+
 ## What it does
 
 This web app and background service save Twitter queries away in [PI AF](http://www.osisoft.com/software-support/what-is-pi/What_Is_PI.aspx) in order to save those tweets (since Twitter's API doesn't give you data older that 6-9 days). It builds up a database surrounding your queries and then lets the user sort through that data.
