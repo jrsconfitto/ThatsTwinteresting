@@ -4,6 +4,7 @@ using Nancy.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using TinyIoC;
 
@@ -46,7 +47,11 @@ namespace Hackathon
     {
         public string GetRootPath()
         {
+#if DEBUG
+            return Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
+#else
             return AppDomain.CurrentDomain.BaseDirectory;
+#endif
         }
     }
 }
