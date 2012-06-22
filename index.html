@@ -21,7 +21,7 @@
       <div class="inner">
         <h1>ThatsTwinteresting</h1>
         <h2>Because the world doesnt have enough Twitter apps with punny names...</h2>
-        <a href="https://github.com/jugglingnutcase/ThatsTwinteresting" class="button"><small>View project on</small>GitHub</a>
+        <a href="https://github.com/jugglingnutcase/ThatsTwinteresting" class="button" onClick="_gaq.push(['_trackEvent', 'View', 'Link', 'source']);"><small>View project on</small>GitHub</a>
       </div>
     </header>
 
@@ -88,11 +88,11 @@
         </section>
 
         <aside id="sidebar">
-          <a href="https://github.com/downloads/jugglingnutcase/ThatsTwinteresting/Twinteresting-alpha.zip" class="button">
+          <a href="https://github.com/downloads/jugglingnutcase/ThatsTwinteresting/Twinteresting-alpha.zip" class="button" onClick="_gaq.push(['_trackEvent', 'Downloads', 'Download', 'executable']);">
             <small>Download</small>
             Executable
           </a>
-          <a href="https://github.com/jugglingnutcase/ThatsTwinteresting/zipball/master" class="button">
+          <a href="https://github.com/jugglingnutcase/ThatsTwinteresting/zipball/master" class="button" onClick="_gaq.push(['_trackEvent', 'Downloads', 'Download', 'source']);">
             <small>Download</small>
             .zip file
           </a>
@@ -103,17 +103,25 @@
         </aside>
       </div>
     </div>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
-            <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-537179-12");
+        <script type="text/javascript">
+          var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+          document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+          try {
+            var pageTracker = _gat._getTracker("UA-537179-12");
             pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
-
+          } catch(err) { }
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.button').click(function() {
+                    _trackEvent();
+                });
+            });
+        </script> 
   </body>
 </html>
