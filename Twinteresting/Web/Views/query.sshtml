@@ -145,25 +145,37 @@
           map.addLayer(new wax.leaf.connector(tilejson));
       });  
 
-      // Center the map at Pheasant Run for now
-      map.setView(new L.LatLng(41.920673, -88.255363), 5);
+      // Center the map at ROCHESTER NEW YORK, YEAH
+      map.setView(new L.LatLng(43.161038, -77.610919), 5);
 
-      // When a tweet is clicked
-      $('.showLocation').click(function() {
-        var tweetLatitude = $(this).attr('data-latitude');
-        var tweetLongitude = $(this).attr('data-longitude');
+      var markerCache = {};
+      
+      // Map all the tweets!
+      $('.showLocation').each(function() {
+        var tLat = $(this).attr('data-latitude');
+        var tLng = $(this).attr('data-longitude');
         var tweetContent = $(this).attr('data-tweet');
 
-        // Center the map on the clicked tweet
-        map.setView(new L.LatLng(tweetLatitude, tweetLongitude), 7);
-
-        // Create a marker, set its properties, and popup content at those coordinates
-        var markerLocation = new L.LatLng(tweetLatitude, tweetLongitude);
+        // Create a marker at that location, set its properties, and popup content
+        var markerLocation = new L.LatLng(tLat, tLng);
         var marker = new L.Marker(markerLocation);
-        marker.bindPopup(tweetContent).openPopup();
+        marker.bindPopup(tweetContent);
 
-        // Add the marker to the map
+        // Add the marker to the map and cache it for later
+        // Thanks for the caching idea: https://github.com/CloudMade/Leaflet/issues/205#issuecomment-1630424
         map.addLayer(marker);
+        markerCache[marker.getLatLng().toString()] = marker;
+      });
+
+      // Clicking on a "Show Location" link should center the map to the marker and open the popup with the Tweet text
+      $('.showLocation').bind('click', function() {
+        var tLat = $(this).attr('data-latitude');
+        var tLng = $(this).attr('data-longitude');
+        var location = new L.LatLng(tLat, tLng);
+        
+        // Show it on the map and bring up the popup
+        map.setView(new L.LatLng(tLat, tLng), 5);
+        markerCache[location.toString()].openPopup();
       });
     });
   </script>
