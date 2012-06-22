@@ -174,7 +174,7 @@
         var location = new L.LatLng(tLat, tLng);
         
         // Show it on the map and bring up the popup
-        map.setView(new L.LatLng(tLat, tLng), 5);
+        map.panTo(new L.LatLng(tLat, tLng));
         markerCache[location.toString()].openPopup();
       });
     });
