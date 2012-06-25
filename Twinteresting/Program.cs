@@ -48,7 +48,7 @@ namespace Hackathon
                 Console.WriteLine("i need connection information for PI AF");
             }
 
-            Console.ReadKey();
+            Console.ReadLine();
         }
     }
 }
