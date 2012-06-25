@@ -113,14 +113,6 @@
       <div id="queryResults">
       </div>
 
-      <br>
-
-      <div class="row"> 
-        <div class="span12">
-          <p>Items <span class="label label-success">in green</span> represent queries within a region</p>
-        </div>
-      </div>
-
       <hr>
     </div>
   </div>
