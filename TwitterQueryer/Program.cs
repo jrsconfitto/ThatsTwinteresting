@@ -32,15 +32,15 @@ namespace TwitterQueryer
                 {
                     string username = (args.Length == 4) ? args[2] : "";
                     string password = (args.Length == 4) ? args[3] : "";
-                    PIConnection.Connect(piSystemName, afDBName, username, password);
+                    PIUtilities.Connect(piSystemName, afDBName, username, password);
                 }
                 else
                 {
-                    PIConnection.Connect(piSystemName, afDBName);
+                    PIUtilities.Connect(piSystemName, afDBName);
                 }
 
                 // Verify the connection on the console
-                Console.WriteLine(String.Format("AF Database {0} is connected!", PI_AF.PIConnection.afDB.Name));
+                Console.WriteLine(String.Format("AF Database {0} is connected!", PI_AF.PIUtilities.afDB.Name));
 
                 // Start up the Nancy web api for my project
                 var host = new WebServiceHost(new NancyWcfGenericService(),
@@ -67,9 +67,9 @@ namespace TwitterQueryer
         {
             // Grab all the Elements that represent Twitter Queries. i'm assuming 500 is way too much for now. Kinda like 1 Gb ethernet...
             AFNamedCollectionList<AFElement> twitterQueryElements = AFElement.FindElementsByTemplate(
-                PIConnection.afDB,
+                PIUtilities.afDB,
                 null,
-                PIConnection.afQueryElementTemplate,
+                PIUtilities.afQueryElementTemplate,
                 true,
                 AFSortField.Name,
                 AFSortOrder.Ascending,
@@ -85,16 +85,8 @@ namespace TwitterQueryer
                 {
                     Console.WriteLine("My service is checking Twitter for the {0} query.", queryElement.Name);
 
-                    var location_based_query = Boolean.Parse(queryElement.Attributes["Location based"].GetValue().Value.ToString());
-                    if (location_based_query)
-                    {
-                        var location_query_string = queryElement.Attributes["Location Query"].GetValue().Value.ToString();
-                        TwitterQueryer.Twitter.Querier.QueryTwitter(queryElement.Name, location_query_string);
-                    }
-                    else
-                    {
-                        TwitterQueryer.Twitter.Querier.QueryTwitter(queryElement.Name);
-                    }
+                    var location_query_string = queryElement.Attributes["Location Query"].GetValue().Value.ToString();
+                    TwitterQueryer.Twitter.Querier.QueryTwitter(queryElement);
                 }
                 else
                 {

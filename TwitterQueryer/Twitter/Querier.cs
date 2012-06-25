@@ -13,45 +13,30 @@ namespace TwitterQueryer.Twitter
     {
         public static RestClient client = new RestClient("http://search.twitter.com/");
 
-        public static void QueryTwitter(string queryString, string location_query="")
+        public static void QueryTwitter(AFElement queryElement)
         {
             try
             {
                 // Create the request for Twitter's API
                 IRestRequest tqRequest = new RestRequest("search.json", Method.POST);
-                tqRequest.AddParameter("q", queryString);
 
-                // Create a PI Twitter Query Element for the query if it's not already present
-                OSIsoft.AF.Asset.AFElement queryElement = PIConnection.afDB.Elements[queryString];
+                // Get query information from the element
+                string query = queryElement.Attributes["Query"].GetValue().Value.ToString();
+                string location = queryElement.Attributes["Location Query"].GetValue().Value.ToString();
+                string max_id = queryElement.Attributes["max_id"].GetValue().ToString();
 
-                if (queryElement == null)
+                tqRequest.AddParameter("q", query);
+                tqRequest.AddParameter("since_id", max_id);
+
+                if (location != "")
                 {
-                    queryElement = new AFElement(queryString.Replace("%20", " "), PIConnection.afQueryElementTemplate);
-                    queryElement.Attributes["Query"].SetValue(new AFValue(queryString.Replace("%20", " ")));
-                    queryElement.Attributes["Query Start Time"].SetValue(new AFValue(DateTime.Now));
-
-                    PIConnection.afDB.Elements.Add(queryElement);
-                    PIConnection.afDB.CheckIn();
-                    Console.WriteLine("New AF Element created for this Twitter query");
-                }
-                else
-                {
-                    // Try to use the last query found
-                    var max_id = queryElement.Attributes["max_id"].GetValue().ToString();
-                    tqRequest.AddParameter("since_id", max_id);
-                }
-
-                if (location_query != "")
-                {
-                    queryElement.Attributes["Location Based"].SetValue(new AFValue(true));
-                    queryElement.Attributes["Location Query"].SetValue(new AFValue(location_query));
-                    tqRequest.AddParameter("geocode", location_query);
+                    tqRequest.AddParameter("geocode", location);
                 }
 
                 try
                 {
                     // Log the request to Console
-                    Console.WriteLine(String.Format("Querying Twitter for {0}...", queryString));
+                    Console.WriteLine(String.Format("Querying Twitter for {0}...", query));
 
                     var queryResponse = client.Execute<TweetResponse>(tqRequest);
 
@@ -71,7 +56,7 @@ namespace TwitterQueryer.Twitter
                         {
                             // Create a new EventFrame for each tweet and fill in its attributes
                             //todo: make sure i'm not duplicating a tweet
-                            AFEventFrame tweetEF = new AFEventFrame(PIConnection.afDB, "tweet #" + tweet.id_str, PIConnection.tweetEFTemplate);
+                            AFEventFrame tweetEF = new AFEventFrame(PIUtilities.afDB, "tweet #" + tweet.id_str, PIUtilities.tweetEFTemplate);
                             tweetEF.PrimaryReferencedElement = queryElement;
 
                             // Timing
@@ -97,7 +82,7 @@ namespace TwitterQueryer.Twitter
                         Console.WriteLine("Wrote {0} tweets to PI", result.results.Count);
 
                         // Now put all that into PI!
-                        PIConnection.afDB.CheckIn();
+                        PIUtilities.afDB.CheckIn();
 
                     }
                     else

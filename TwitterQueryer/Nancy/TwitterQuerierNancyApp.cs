@@ -19,10 +19,11 @@ namespace TwitterQueryer
                 var query = parameters.query;
                 var location = parameters.location;
                 
-                Console.WriteLine(String.Format("Request to search for {0} received", query));
+                Console.WriteLine(String.Format("Request to search for {0} at {1} received", query, location));
+                AFElement newQueryElement = PIUtilities.CreateQueryElement(query,location);
 
                 // Start a Twitter Query for that data
-                TwitterQueryer.Twitter.Querier.QueryTwitter(query, location);
+                TwitterQueryer.Twitter.Querier.QueryTwitter(newQueryElement);
 
                 return null;
             };
@@ -32,9 +33,10 @@ namespace TwitterQueryer
                 var query = parameters.query;
                 
                 Console.WriteLine(String.Format("Request to search for {0} received", query));
+                AFElement newQueryElement = PIUtilities.CreateQueryElement(query);
 
                 // Start a Twitter Query for that data
-                TwitterQueryer.Twitter.Querier.QueryTwitter(query);
+                TwitterQueryer.Twitter.Querier.QueryTwitter(newQueryElement);
 
                 return null;
             };
