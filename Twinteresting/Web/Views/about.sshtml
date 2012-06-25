@@ -76,7 +76,7 @@
           <h2>Why?</h2>
           <p>Twitter provides a search API but it only goes back 6-9 days.</p>
           <p>
-            So what do you do if you want to monitor a Twitter campaign and have that data a month later to gauge its success?
+            What do you do if you want to monitor a Twitter campaign and have that data a month later to gauge its success?
             This app uses PI AF and Event Frames to monitor what you're interested in.
           </p>
         </div>
@@ -84,7 +84,7 @@
 
         <div class="row">
           <div class="span12">
-            <p>If you want, the code is <a href="https://github.com/jugglingnutcase/ThatsTwinteresting"> available on github</a></p>
+            <p><a href="http://jugglingnutcase.github.com/ThatsTwinteresting/">View the project's homepage</a> or <a href="https://github.com/jugglingnutcase/ThatsTwinteresting">fork the code on github</a></p>
           </div>
         </div>
       <hr>
