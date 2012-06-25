@@ -15,7 +15,7 @@
                     queryRows.push('<div class="span3">');
 
                     if (query.location) {
-                        queryRows.push(' <a href="/query/' + query.id + '" class="btn btn-success">' + query.name + '</a>');
+                        queryRows.push(' <a href="/query/' + query.id + '" class="btn btn-success"><i class="icon-globe"></i> ' + query.name + '</a>');
                     }
                     else {
                         queryRows.push(' <a href="/query/' + query.id + '" class="btn btn-info">' + query.name + '</a>');
