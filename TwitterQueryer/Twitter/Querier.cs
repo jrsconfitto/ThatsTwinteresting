@@ -56,26 +56,52 @@ namespace TwitterQueryer.Twitter
                         {
                             // Create a new EventFrame for each tweet and fill in its attributes
                             //todo: make sure i'm not duplicating a tweet
-                            AFEventFrame tweetEF = new AFEventFrame(PIUtilities.afDB, "tweet #" + tweet.id_str, PIUtilities.tweetEFTemplate);
-                            tweetEF.PrimaryReferencedElement = queryElement;
+                            AFAttributeTemplate tweetIdTemplate = PIUtilities.tweetEFTemplate.AttributeTemplates["id"];
 
-                            // Timing
-                            tweetEF.SetStartTime(tweet.created_at);
-                            tweetEF.SetEndTime(tweet.created_at);
-                            tweetEF.Description = String.Format("{0} tweet from {1}", queryElement.Name, tweet.from_user);
+                            AFNamedCollectionList<AFEventFrame> frames = AFEventFrame.FindEventFramesByAttribute(
+                                null,
+                                AFSearchMode.None,
+                                DateTime.Now.AddDays(-15),
+                                DateTime.Now,
+                                "",
+                                queryElement.Name,
+                                new AFDurationQuery[] { new AFDurationQuery(OSIsoft.AF.Search.AFSearchOperator.Equal, new TimeSpan(0, 10, 0)) },
+                                new AFAttributeValueQuery[] {new AFAttributeValueQuery(tweetIdTemplate, OSIsoft.AF.Search.AFSearchOperator.Equal,tweet.id_str)}, 
+                                false,
+                                AFSortField.ID,
+                                AFSortOrder.Ascending,
+                                0,
+                                10000);
 
-                            // Attributes
-                            tweetEF.Attributes["id"].SetValue(new AFValue(tweet.id_str));
-                            tweetEF.Attributes["profile_image_url"].SetValue(new AFValue(tweet.profile_image_url));
-                            tweetEF.Attributes["Text"].SetValue(new AFValue(tweet.text));
-                            tweetEF.Attributes["User id"].SetValue(new AFValue(tweet.from_user_id_str));
-                            tweetEF.Attributes["User name"].SetValue(new AFValue(tweet.from_user));
-
-                            // Get the coordinates into PI somehow
-                            if (tweet.geo != null && tweet.geo.coordinates.Count == 2)
+                            if (frames.Count == 0)
                             {
-                                tweetEF.Attributes["Latitude"].SetValue(new AFValue(tweet.geo.coordinates[0]));
-                                tweetEF.Attributes["Longitude"].SetValue(new AFValue(tweet.geo.coordinates[1]));
+                                AFEventFrame tweetEF = new AFEventFrame(PIUtilities.afDB, "tweet #" + tweet.id_str, PIUtilities.tweetEFTemplate);
+                                tweetEF.PrimaryReferencedElement = queryElement;
+
+                                // Timing
+                                tweetEF.SetStartTime(tweet.created_at);
+                                tweetEF.SetEndTime(tweet.created_at);
+                                tweetEF.Description = String.Format("{0} tweet from {1}", queryElement.Name, tweet.from_user);
+
+                                // Attributes
+                                tweetEF.Attributes["id"].SetValue(new AFValue(tweet.id_str));
+                                tweetEF.Attributes["profile_image_url"].SetValue(new AFValue(tweet.profile_image_url));
+                                tweetEF.Attributes["Text"].SetValue(new AFValue(tweet.text));
+                                tweetEF.Attributes["User id"].SetValue(new AFValue(tweet.from_user_id_str));
+                                tweetEF.Attributes["User name"].SetValue(new AFValue(tweet.from_user));
+
+                                // Get the coordinates into PI somehow
+                                if (tweet.geo != null && tweet.geo.coordinates.Count == 2)
+                                {
+                                    tweetEF.Attributes["Latitude"].SetValue(new AFValue(tweet.geo.coordinates[0]));
+                                    tweetEF.Attributes["Longitude"].SetValue(new AFValue(tweet.geo.coordinates[1]));
+                                }
+                            }
+                            else
+                            {
+                                foreach (AFEventFrame efTweet in frames) {
+                                  Console.WriteLine("Duplicate found for id: " + efTweet.Attributes["id"]);
+                                }
                             }
                         }
 
