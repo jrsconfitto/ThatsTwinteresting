@@ -27,7 +27,7 @@ namespace Hackathon
 
                 // Create the request for Twitter's API
                 RestClient twitterLocationClient = new RestClient("http://api.twitter.com/1/geo/");
-                IRestRequest geoRequest = new RestRequest("search.json", Method.POST);
+                IRestRequest geoRequest = new RestRequest("search.json", Method.GET);
                 geoRequest.AddParameter("query", query);
 
                 IRestResponse<Hackathon.TwitterAPI.TwitterGeoResult> geoResponse = twitterLocationClient.Execute<Hackathon.TwitterAPI.TwitterGeoResult>(geoRequest);

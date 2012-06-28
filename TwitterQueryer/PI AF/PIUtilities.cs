@@ -46,8 +46,8 @@ namespace TwitterQueryer.PI_AF
         /// Create a new AF Element for the query with a location
         /// </summary>
         /// <param name="queryString">The query that will be sent to Twitter's API</param>
-        /// <param name="locationQuery">The location string sent to Twitter's API</param>
-        public static AFElement CreateQueryElement(string queryString, string locationQuery = "")
+        /// <param name="place">The location string sent to Twitter's API</param>
+        public static AFElement CreateQueryElement(string queryString, string place = "")
         {
             //todo: make sure the element doesnt already exist under a certain name
             //todo: allow for similar queries but with different locations
@@ -56,9 +56,9 @@ namespace TwitterQueryer.PI_AF
             queryElement.Attributes["Query Start Time"].SetValue(new AFValue(DateTime.Now));
 
             // Add in the location if it's active
-            if (locationQuery != "")
+            if (place != "")
             {
-                queryElement.Attributes["Location Query"].SetValue(new AFValue(locationQuery));
+                queryElement.Attributes["place_id"].SetValue(new AFValue(place));
             }
 
             // Add the element into the AF Database

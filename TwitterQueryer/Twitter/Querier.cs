@@ -23,14 +23,19 @@ namespace TwitterQueryer.Twitter
                 // Get query information from the element
                 string query = queryElement.Attributes["Query"].GetValue().Value.ToString();
                 string location = queryElement.Attributes["Location Query"].GetValue().Value.ToString();
+                string place_id = queryElement.Attributes["place_id"].GetValue().Value.ToString();
                 string max_id = queryElement.Attributes["max_id"].GetValue().ToString();
 
                 tqRequest.AddParameter("q", query);
                 tqRequest.AddParameter("since_id", max_id);
 
-                if (location != "")
+                if (location != "" && place_id == "")
                 {
                     tqRequest.AddParameter("geocode", location);
+                }
+                else if (place_id != "")
+                {
+                    tqRequest.AddParameter("geocode", place_id);
                 }
 
                 try

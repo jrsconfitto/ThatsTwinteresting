@@ -14,13 +14,13 @@ namespace TwitterQueryer
     {
         public TwitterQuerierNancyApp()
         {
-            Post["/query/{query}/{location}"] = parameters =>
+            Post["/query/{query}/{place}"] = parameters =>
             {
                 var query = parameters.query;
-                var location = parameters.location;
+                var place = parameters.place;
                 
-                Console.WriteLine(String.Format("Request to search for {0} at {1} received", query, location));
-                AFElement newQueryElement = PIUtilities.CreateQueryElement(query,location);
+                Console.WriteLine(String.Format("Request to search for {0} at {1} received", query, place));
+                AFElement newQueryElement = PIUtilities.CreateQueryElement(query,place);
 
                 // Start a Twitter Query for that data
                 TwitterQueryer.Twitter.Querier.QueryTwitter(newQueryElement);

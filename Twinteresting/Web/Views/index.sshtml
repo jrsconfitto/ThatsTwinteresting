@@ -51,9 +51,10 @@
 
   <script id="locationTemplate" type="text/template">
     <label class="radio">
-      <input type="radio" name="optionsRadios" value="{{latitude}},{{longitude}},50mi" checked="">
+      <input type="radio" name="optionsRadios" value="{{id}}" checked="">
       {{name}}
     </label>
+    <br />
   </script>
 
   <div role="main">

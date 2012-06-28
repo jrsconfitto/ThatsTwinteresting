@@ -104,6 +104,7 @@ $(document).ready(function () {
                     city.name = result.full_name;
                     city.latitude = result.bounding_box.coordinates[0][0][0];
                     city.longitude = result.bounding_box.coordinates[0][0][1];
+                    city.id = result.id;
 
                     validLocations.push(city);
                 });
@@ -115,7 +116,7 @@ $(document).ready(function () {
                 });
 
                 if (rendered.length != 0) {
-                    $('#locationRadios').html(rendered.join(' '));
+                    $('#locationRadios').html(rendered.join('<br /> '));
                 }
                 else {
                     $('#locationRadios').html('<p>No results found, try again</p>');
