@@ -51,8 +51,8 @@
 
   <script id="locationTemplate" type="text/template">
     <label class="radio">
-      <input type="radio" name="optionsRadios" value="{{id}}" checked="">
-      {{name}}
+      <input type="radio" name="optionsRadios" value="{{id}}" data-place="{{name}}" checked="">
+        {{name}}
     </label>
     <br />
   </script>
@@ -95,10 +95,10 @@
           <form class="well form-search">
             <input id="queryTerms" type="text" class="input-xlarge search-query">
             <label class="checkbox">
-                <input id="searchLocation" type="checkbox"> Monitor within a location
+                <input id="searchLocation" type="checkbox">Monitor <span id="place">place</span>
             </label>
-            <input id="location" type="text" class="input-xlarge"></input>
-            <button id="monitor" class="btn">Monitor</button>
+            <button id="editLocation" class="btn">Edit</button>
+            <button id="monitor" class="btn btn-primary">Monitor</button>
           </form>
         </div>
       </div>
@@ -113,7 +113,6 @@
 
       <div id="queryResults">
       </div>
-
       <hr>
     </div>
   </div>

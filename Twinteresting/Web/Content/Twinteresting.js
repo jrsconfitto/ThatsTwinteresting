@@ -57,7 +57,7 @@ $(document).ready(function () {
         else {
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:1111/query/' + query_data + '/' + $('#location').val(),
+                url: 'http://localhost:1111/query/' + query_data + '/' + $('#place').val(),
                 complete: function () {
                     fillQueries();
                 }
@@ -83,9 +83,14 @@ $(document).ready(function () {
         sendQuery();
     });
 
-    // Location checkbox used
-    $('#searchLocation').change(function () {
+    $('#editLocation').click(function (e) {
+        e.preventDefault();
         $('#myModal').modal('show');
+    });
+
+    // Location checkbox used
+    $('#searchLocation').change(function (e) {
+        e.preventDefault();
     });
 
     // Search for locations relevant to the user's search
@@ -100,13 +105,13 @@ $(document).ready(function () {
                 var validLocations = [];
 
                 data.forEach(function (result) {
-                    var city = {};
-                    city.name = result.full_name;
-                    city.latitude = result.bounding_box.coordinates[0][0][0];
-                    city.longitude = result.bounding_box.coordinates[0][0][1];
-                    city.id = result.id;
+                    var place = {};
+                    place.name = result.full_name;
+                    place.latitude = result.bounding_box.coordinates[0][0][0];
+                    place.longitude = result.bounding_box.coordinates[0][0][1];
+                    place.id = result.id;
 
-                    validLocations.push(city);
+                    validLocations.push(place);
                 });
 
                 var rendered = [];
@@ -116,7 +121,7 @@ $(document).ready(function () {
                 });
 
                 if (rendered.length != 0) {
-                    $('#locationRadios').html(rendered.join('<br /> '));
+                    $('#locationRadios').html(rendered.join(' '));
                 }
                 else {
                     $('#locationRadios').html('<p>No results found, try again</p>');
@@ -125,8 +130,9 @@ $(document).ready(function () {
         });
 
         $('#useLocation').click(function () {
-            var selectedLocationValue = $('#locationRadios input[name=optionsRadios]:checked').val();
-            $('#location').val(selectedLocationValue);
+            var selectedLocationValue = $('#locationRadios input[name=optionsRadios]:checked');
+            $('#place').val(selectedLocationValue.val());
+            $('#place').text(selectedLocationValue.attr('data-place'));
         });
     });
 });

@@ -77,7 +77,7 @@ namespace Hackathon
                     {
                         var queryActive = queryElement.Attributes["Active"].GetValue().Value.ToString();
                         var timestamp = queryElement.Attributes["Query Start Time"].GetValue().ToString();
-                        var location_query = queryElement.Attributes["Location Query"].GetValue().ToString();
+                        var location_query = queryElement.Attributes["place_id"].GetValue().ToString();
 
                         elementsModel.Add(
                             new TwitterQueryModel()
@@ -110,7 +110,7 @@ namespace Hackathon
 
             AFElement twitterQuery = AFElement.FindElement(PIConnection.afDB.PISystem, queryID);
 
-            var location_based = twitterQuery.Attributes["Location Query"].GetValue().Value.ToString() != "";
+            var location_based = twitterQuery.Attributes["place_id"].GetValue().Value.ToString() != "";
 
             AFNamedCollectionList<AFEventFrame> tweets;
             if (location_based)

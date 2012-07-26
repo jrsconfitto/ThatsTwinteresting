@@ -85,7 +85,7 @@ namespace TwitterQueryer
                 {
                     Console.WriteLine("My service is checking Twitter for the {0} query.", queryElement.Name);
 
-                    var location_query_string = queryElement.Attributes["Location Query"].GetValue().Value.ToString();
+                    var location_query_string = queryElement.Attributes["place_id"].GetValue().Value.ToString();
                     TwitterQueryer.Twitter.Querier.QueryTwitter(queryElement);
                 }
                 else
