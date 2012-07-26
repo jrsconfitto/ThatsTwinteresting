@@ -51,6 +51,18 @@ namespace Hackathon
                 return getQueryTweets(id, count);
             };
 
+            // Query twitter for the data associated with the passed place_id
+            Get["/place/{id}"] = parameters =>
+            {
+                var id = parameters.id;
+
+                RestClient twitterLocationClient = new RestClient("http://api.twitter.com/1/geo/id/");
+                IRestRequest geoRequest = new RestRequest(id + ".json", Method.GET);
+                IRestResponse geoResponse = twitterLocationClient.Execute(geoRequest);
+
+                return Response.AsJson(geoResponse.Content);
+            };
+
             Get["/query/{id}"] = parameters =>
             {
                 var id = parameters.id;
@@ -86,7 +98,7 @@ namespace Hackathon
                                 name = queryElement.Name,
                                 active = bool.Parse(queryActive),
                                 queryTime = DateTime.Parse(timestamp),
-                                location = location_query != "" 
+                                location = location_query != ""
                             }
                         );
                     }
@@ -124,8 +136,8 @@ namespace Hackathon
                     DateTime.Now,
                     "",
                     twitterQuery.Name,
-                    new AFDurationQuery[] { new AFDurationQuery(OSIsoft.AF.Search.AFSearchOperator.NotEqual, new TimeSpan(24,0,0)) },
-                    new AFAttributeValueQuery[] { new AFAttributeValueQuery(latitudeTemplate, OSIsoft.AF.Search.AFSearchOperator.NotEqual, "")},
+                    new AFDurationQuery[] { new AFDurationQuery(OSIsoft.AF.Search.AFSearchOperator.NotEqual, new TimeSpan(24, 0, 0)) },
+                    new AFAttributeValueQuery[] { new AFAttributeValueQuery(latitudeTemplate, OSIsoft.AF.Search.AFSearchOperator.NotEqual, "") },
                     true,
                     AFSortField.StartTime,
                     AFSortOrder.Descending,
@@ -135,15 +147,15 @@ namespace Hackathon
             }
             else
             {
-            tweets = twitterQuery.GetEventFrames(
-               DateTime.Now,
-               0,
-               count,
-               AFEventFrameSearchMode.BackwardFromStartTime,
-               "",
-               null,
-               PIConnection.tweetEFTemplate
-            );
+                tweets = twitterQuery.GetEventFrames(
+                   DateTime.Now,
+                   0,
+                   count,
+                   AFEventFrameSearchMode.BackwardFromStartTime,
+                   "",
+                   null,
+                   PIConnection.tweetEFTemplate
+                );
             }
 
             // Build up the model that i'm going to use
@@ -155,14 +167,17 @@ namespace Hackathon
                 string longi = ef.Attributes["Longitude"].GetValue().Value.ToString();
                 string content = ef.Attributes["Text"].GetValue().ToString();
 
-                if (lat != "" && longi != "") {
+                if (lat != "" && longi != "")
+                {
                     loc_link = string.Format(@"<a class=""showLocation"" href=""#"" data-latitude=""{0}"" data-longitude=""{1}"" data-tweet=""{2}"">Show Location</a>", lat, longi, content);
                 }
-                else {
+                else
+                {
                     loc_link = "";
                 }
 
-                tweetModelList.Add(new TweetModel() {
+                tweetModelList.Add(new TweetModel()
+                {
                     id = ef.Attributes["id"].GetValue().Value.ToString(),
                     user_name = ef.Attributes["User name"].GetValue().Value.ToString(),
                     profile_url = ef.Attributes["profile_image_url"].GetValue().Value.ToString(),
@@ -180,7 +195,8 @@ namespace Hackathon
                 active = bool.Parse(twitterQuery.Attributes["Active"].GetValue().Value.ToString()),
                 location = location_based,
                 queryTime = DateTime.Now,
-                tweets = tweetModelList
+                tweets = tweetModelList,
+                place_id = twitterQuery.Attributes["place_id"].GetValue().ToString()
             };
 
             return View["Views/query", twitterQueryModel];

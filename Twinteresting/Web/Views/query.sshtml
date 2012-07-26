@@ -60,7 +60,7 @@
       <div class="row">
         <div class="span12">
           <h1>
-            @Model.name <small>Query details</small> @If.location<span class="label label-success">Uses location</span>@EndIf
+            @Model.name <small>Query details</small> @If.location<span class="label label-success">Location <span id="primaryLocation"></span></span>@EndIf
           </h1>
         </div>
       </div>
@@ -133,6 +133,12 @@
 
   <script type="text/javascript">
     $(document).ready(function() {
+      // Get the location
+      $.getJSON('http://localhost:1234/place/@Model.place_id', function(data) {
+        var location_data = JSON.parse(data);
+        $('#primaryLocation').text(location_data.full_name);
+      });
+      
       // Define the map to use from MapBox 
       // This is the TileJSON endpoint copied from the embed button on your map
       var url = 'http://a.tiles.mapbox.com/v3/jugglingnutcase.map-p7s96trg.jsonp';

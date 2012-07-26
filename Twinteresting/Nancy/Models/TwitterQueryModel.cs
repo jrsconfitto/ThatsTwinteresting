@@ -11,8 +11,8 @@ namespace Hackathon.PI_AF
         public string name { get; set; }
         public bool active { get; set; }
         public bool location { get; set; }
+        public string place_id { get; set; }
         public DateTime queryTime { get; set; }
-
         public List<TweetModel> tweets { get; set; }
     }
 
